@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tbml xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.teslaalliance.org/trs/tbml/1.0/tbml-core.xsd" xmlns="http://www.teslaalliance.org/trs/tbml/1.0" xmlns:XMLSchema="http://www.w3.org/2001/XMLSchema">
+  <header>
+    <name>Regression_Topology1</name>
+    <description></description>
+    <property name="emulation" vendor="com.fnfr">enabled</property>
+    <property name="rmGuid">5d214f48-89eb-45ea-8978-19a1e2215a30</property>
+    <isSharedAccess>false</isSharedAccess>
+  </header>
+  <body>
+    <resources>
+      <resource guid="4de86d95-bf88-4993-93e5-f9b2a79d5231" id="if79375f9-9cbc-416e-9020-a81021e95968" shared="true" type="device">
+        <boundary height="100" width="200" x="475" y="95"/>
+        <property isimportant="false" name="name">Gateway2</property>
+        <property isimportant="false" name="inventoryName">Gateway2</property>
+        <property isimportant="false" name="description"/>
+        <property isimportant="false" name="utilizationType">SHARED</property>
+        <property isimportant="false" name="ilo_iconId">c6c4cc33-7ddb-4221-ae9c-57dd4b6e03bc</property>
+        <property isimportant="false" name="iconURI">ilo://api/repository/v2/asset/c6c4cc33-7ddb-4221-ae9c-57dd4b6e03bc?rasterizedIconSize=64</property>
+        <property isimportant="false" name="isIconVisible">true</property>
+        <property isimportant="false" name="reservationTime">IMMEDIATE</property>
+        <property isimportant="false" name="ilo_shape">RECTANGLE</property>
+        <property isimportant="false" name="color">WHITE</property>
+        <property isimportant="false" name="borderColor">SILVER</property>
+        <propertyCollection name="System Identification">
+<property id="3cbbbb7d-24a1-42c2-b283-5741aa019dd8" valuelabel="" name="ipAddress" type="text">127.0.0.1</property>
+<property id="7f6749e3-3aad-1463-0a2b-a8b7bef6e3f2" valuelabel="" name="Hostname" type="text"/>
+<property id="8b7693ed-322c-e9d4-2b90-fd43c40a15ac" valuelabel="" name="Make" type="text"/>
+<property id="a71d33d8-2fb2-4925-4f94-b30e093793fe" valuelabel="" name="Model" type="text"/>
+<property id="79554742-a4d4-1759-1c0a-0123cfbcf562" valuelabel="" name="Serial Number" type="text"/>
+<property id="43d4c864-5f54-2173-bfc4-0bc5c8e9d2e7" valuelabel="" name="Console server" type="text"/>
+</propertyCollection>
+        <propertyCollection name="Location Information">
+<property id="c4f96c72-60f1-930c-ef14-ae96dfbb2c67" valuelabel="" name="Facility" type="text"/>
+<property id="c766285b-cd90-8771-6b3d-2b5c0693f1e7" valuelabel="" name="Room" type="text"/>
+<property id="320f0b3f-80a6-a3c0-ae46-413e436fbd38" valuelabel="" name="Floor Position" type="text"/>
+</propertyCollection>
+        <propertyCollection name="Credentials">
+<property id="c1f3e26d-ca45-de82-f4d3-259a1eb786e4" valuelabel="" name="username" type="text"/>
+<property id="16e7acc3-0b26-6683-868b-c2c8ffd492a6" valuelabel="" name="password" type="password"/>
+</propertyCollection>
+        <resource guid="376871c1-32f2-41fe-aee3-7cd4b359bdb3" id="i6ee5d5a9-7d86-4f9a-8b09-eba12c43c932" type="port">
+          <property isimportant="false" name="name">GW2-1</property>
+          <property isimportant="false" name="inventoryName">GW2-1</property>
+          <property isimportant="false" name="description"/>
+          <property isimportant="false" name="connectivity">connected</property>
+          <property isimportant="false" name="utilizationType">EXCLUSIVE</property>
+          <propertyCollection name="System Identification">
+<property id="be8dfa08-e4e1-45ea-ae2e-804da4d4a233" valuelabel="" name="portNumber" type="text">GW2-1</property>
+<property id="b5942a97-9dce-b1b8-0be4-fae025c75493" valuelabel="" name="Port Type" type="text">Ethernet</property>
+<property id="512edb1f-5472-2e35-09c6-9a8c7a22df33" valuelabel="" name="Port Speed" type="integer">1000</property>
+</propertyCollection>
+        </resource>
+      </resource>
+      <resource guid="bd83c6b6-d9a3-42bb-a070-85c8c8187fd8" id="i70007546-f851-4293-8551-b99ed9cc40ad" shared="true" type="device">
+        <boundary height="100" width="200" x="160" y="98"/>
+        <property isimportant="false" name="name">Gateway1</property>
+        <property isimportant="false" name="inventoryName">Gateway1</property>
+        <property isimportant="false" name="description"/>
+        <property isimportant="false" name="utilizationType">SHARED</property>
+        <property isimportant="false" name="ilo_iconId">c6c4cc33-7ddb-4221-ae9c-57dd4b6e03bc</property>
+        <property isimportant="false" name="iconURI">ilo://api/repository/v2/asset/c6c4cc33-7ddb-4221-ae9c-57dd4b6e03bc?rasterizedIconSize=64</property>
+        <property isimportant="false" name="isIconVisible">true</property>
+        <property isimportant="false" name="reservationTime">IMMEDIATE</property>
+        <property isimportant="false" name="ilo_shape">RECTANGLE</property>
+        <property isimportant="false" name="color">WHITE</property>
+        <property isimportant="false" name="borderColor">SILVER</property>
+        <propertyCollection name="System Identification">
+<property id="63825e61-973d-4a70-ac11-861769d8ea13" valuelabel="" name="ipAddress" type="text">127.0.0.1</property>
+<property id="7de63c6f-06bc-8f37-2661-073e0a27da36" valuelabel="" name="Hostname" type="text"/>
+<property id="56b47708-ae82-9eb2-4d95-9c728f414405" valuelabel="" name="Make" type="text"/>
+<property id="d126e0ca-b5e7-c876-7d67-cf3971e1e41e" valuelabel="" name="Model" type="text"/>
+<property id="9e3a7f00-813b-1c4d-922b-75388bad8fb2" valuelabel="" name="Serial Number" type="text"/>
+<property id="f5f86b82-df72-8a19-ba07-89991bd7736b" valuelabel="" name="Console server" type="text"/>
+</propertyCollection>
+        <propertyCollection name="Location Information">
+<property id="a2875685-5373-17f1-fd24-b5640fd2a2f1" valuelabel="" name="Facility" type="text"/>
+<property id="f6368cce-8922-1821-2ac5-41c814982ff1" valuelabel="" name="Room" type="text"/>
+<property id="33256525-9f35-12dc-f636-f283d24628b7" valuelabel="" name="Floor Position" type="text"/>
+</propertyCollection>
+        <propertyCollection name="Credentials">
+<property id="06b0aa73-8e32-2ea1-1b5f-4ac6fa1c2c2d" valuelabel="" name="username" type="text"/>
+<property id="3ec0dd4a-d12c-49c3-ef46-b762485d22c3" valuelabel="" name="password" type="password"/>
+</propertyCollection>
+        <extensions type="com.fnfr.itest.session" xs:namespace="com.fnfr.itest.session">
+          <session baseSessionProfile="" name="ssh" provider="com.fnfr">
+            <sessionProfile version="9.4.1.202310041549">
+              <baseApplication>com.fnfr.svt.applications.ssh</baseApplication>
+              <sessionProperties type="com.fnfr.svt.applications.ssh.documents.SSHProperties">
+                <ipAddress inherit="false">10.62.224.65</ipAddress>
+                <user inherit="false">root</user>
+                <password inherit="false" masked="true">8t+EnBZizaiaXYyO0nPrYQ==</password>
+              </sessionProperties>
+              <language>Python</language>
+              <agentRequirements>
+                <requirement/>
+              </agentRequirements>
+            </sessionProfile>
+            <isInherited>false</isInherited>
+            <isDisabled>false</isDisabled>
+          </session>
+        </extensions>
+        <resource guid="62730fb9-be82-4251-9f3f-2ada363aa5b2" id="idf8f8e92-22cc-464c-8f4a-a156d011928c" type="port">
+          <property isimportant="false" name="name">GW1-1</property>
+          <property isimportant="false" name="inventoryName">GW1-1</property>
+          <property isimportant="false" name="description"/>
+          <property isimportant="false" name="connectivity">connected</property>
+          <property isimportant="false" name="utilizationType">EXCLUSIVE</property>
+          <propertyCollection name="System Identification">
+<property id="634d4706-e2ae-42ad-934d-c76f37892e1b" valuelabel="" name="portNumber" type="text">GW1-1</property>
+<property id="aa410fde-3d5c-93dd-d89f-0c0e5d83d53b" valuelabel="" name="Port Type" type="text">Ethernet</property>
+<property id="7e8e053c-a213-794a-41e9-fcc95d50ff25" valuelabel="" name="Port Speed" type="integer">1000</property>
+</propertyCollection>
+        </resource>
+      </resource>
+    </resources>
+    <connectivity>
+      <link id="i7db1ad1d-086b-4800-a105-81dac375d304">
+        <property isimportant="false" name="name">Link</property>
+        <property isimportant="false" name="type">Ethernet</property>
+        <property isimportant="false" name="lineStyle">LINEAL</property>
+        <property isimportant="false" name="abstractResourceId"/>
+        <property isimportant="false" name="abstractResourceName"/>
+        <propertyCollection name="connectionType" order="0">
+<property isimportant="false" name="id">8d0e5425-8608-60f6-f7f1-7e2131dcc569</property>
+<property isimportant="false" name="description"/>
+<property isimportant="false" name="kind">L1</property>
+<property isimportant="false" name="shortcut">Eth</property>
+</propertyCollection>
+        <propertyCollection name="view" order="0">
+<property isimportant="false" name="color">GRAY</property>
+<property isimportant="false" name="width">2</property>
+</propertyCollection>
+        <endpoint direction="bidirectional" id="i6ee5d5a9-7d86-4f9a-8b09-eba12c43c932"/>
+        <endpoint direction="bidirectional" id="idf8f8e92-22cc-464c-8f4a-a156d011928c"/>
+        <extensions type="com.fnfr.rm.condition" XMLSchema:namespace="com.fnfr.rm.condition"/>
+      </link>
+    </connectivity>
+  </body>
+  <illustration>
+    <layer/>
+  </illustration>
+</tbml>

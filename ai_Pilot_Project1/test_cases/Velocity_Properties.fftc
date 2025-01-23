@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<testCase version="9.4.1.202310041549">
+    <general>
+        <language>Python</language>
+        <xPathVersion>XPATH31</xPathVersion>
+    </general>
+    <execution>
+        <parameters version="9.4.1.202310041549">
+            <parameters escape="true">
+                <parameters xmlns:pt="http://www.fnfr.com/schemas/parameterTree">
+                    <autogen_main_17bdc7a3-5411-4c3c-a80f-953ee6462dbb pt:datatype="SECRET" pt:mask="true"/>
+                </parameters>
+            </parameters>
+        </parameters>
+    </execution>
+    <testbed>project://ai_Pilot_Project1/topologies/Regression_Topology1.tbml</testbed>
+    <procedures>
+        <item name="main">
+            <steps>
+                <item guid="208ad538-75a2-4772-a678-2acb8fde0f6f" action="eval" normalOffset="0.166" estimatedStepExecutionTime="0.007" useFieldsInCommand="false">
+                    <command>
+                        <body>ip1 = tbml(&apos;property&apos;, &apos;-name&apos;, &apos;Gateway2&apos;, &apos;{System Identification} ipAddress&apos;)</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="4086d72c-eb4b-416c-b5ad-da8b8a40bf13" action="eval" useFieldsInCommand="false">
+                    <command>
+                        <body>print(ip1)</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="8abe81c1-d68b-4aa5-a713-4ab6c151a586" action="open" session="Gateway1" useFieldsInCommand="false">
+                    <command>
+                        <body>device:Gateway1#ssh</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.OpenStepPropertyGroup">
+                        <stepProperties type="com.fnfr.svt.editors.terminal.documents.StepDefaultProperties">
+                            <promptProperties>
+                                <stepPrompts>
+                                    <item name="autoPrompt1">
+                                        <Content>R1&gt;</Content>
+                                    </item>
+                                </stepPrompts>
+                            </promptProperties>
+                        </stepProperties>
+                        <sessionProperties type="com.fnfr.svt.applications.ssh.documents.SSHProperties">
+                            <ipAddress inherit="false">[tbml(&apos;property&apos;, &apos;-id&apos;, &apos;idf8f8e92-22cc-464c-8f4a-a156d011928c&apos;, &apos;ipAddressV4&apos;)]</ipAddress>
+                        </sessionProperties>
+                        <sessionClass type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        <sessionVersion type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                    </applicationProperties>
+                </item>
+                <item guid="267b16a8-cb9f-49a0-89b6-595ef3da6e05" action="command" session="Gateway1" normalOffset="5.371" estimatedStepExecutionTime="0.005" useFieldsInCommand="false">
+                    <command>
+                        <body>enable</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.editors.terminal.documents.StepDefaultProperties">
+                        <promptProperties>
+                            <stepPrompts>
+                                <item name="autoPrompt1">
+                                    <Content>Password: </Content>
+                                </item>
+                            </stepPrompts>
+                        </promptProperties>
+                        <completionProperties expectedIdleTime="0.383" expectedIdleTime.inherit="false"/>
+                    </applicationProperties>
+                </item>
+                <item guid="17bdc7a3-5411-4c3c-a80f-953ee6462dbb" action="command" session="Gateway1" normalOffset="2.091" estimatedStepExecutionTime="0.008">
+                    <command isSecret="true">
+                        <body>[param(&apos;autogen_main_17bdc7a3-5411-4c3c-a80f-953ee6462dbb&apos;)]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.editors.terminal.documents.StepDefaultProperties">
+                        <promptProperties>
+                            <stepPrompts>
+                                <item name="autoPrompt1">
+                                    <Content>R1#</Content>
+                                </item>
+                            </stepPrompts>
+                        </promptProperties>
+                    </applicationProperties>
+                </item>
+                <item guid="7a653063-bca1-4902-8735-4541479dddfc" action="command" session="Gateway1" normalOffset="0.799" estimatedStepExecutionTime="0.004" useFieldsInCommand="false">
+                    <command>
+                        <body>tbml(&apos;property&apos;, &apos;-name&apos;, &apos;Gateway2&apos;, &apos;{System Identification} ipAddress&apos;)</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.editors.terminal.documents.StepDefaultProperties">
+                        <promptProperties>
+                            <stepPrompts>
+                                <item name="autoPrompt1">
+                                    <Content>R1#</Content>
+                                </item>
+                            </stepPrompts>
+                        </promptProperties>
+                    </applicationProperties>
+                </item>
+                <item guid="cec21f6e-dd41-4b57-bfdb-7b5d0c00d468" action="command" session="Gateway1" normalOffset="5.051" estimatedStepExecutionTime="0.007" useFieldsInCommand="false">
+                    <command>
+                        <body>sh ip int br</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.editors.terminal.documents.StepDefaultProperties">
+                        <promptProperties>
+                            <stepPrompts>
+                                <item name="autoPrompt1">
+                                    <Content>R1#</Content>
+                                </item>
+                            </stepPrompts>
+                        </promptProperties>
+                        <completionProperties expectedIdleTime="0.433" expectedIdleTime.inherit="false"/>
+                    </applicationProperties>
+                </item>
+                <item guid="a48429b5-1b46-4c88-ab31-cad9d57445a3" action="command" session="Gateway1" normalOffset="10.745" estimatedStepExecutionTime="0.013" useFieldsInCommand="false">
+                    <command>
+                        <body>ping 10.62.224.1</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.editors.terminal.documents.StepDefaultProperties">
+                        <promptProperties>
+                            <stepPrompts>
+                                <item name="autoPrompt1">
+                                    <Content>R1#</Content>
+                                </item>
+                            </stepPrompts>
+                        </promptProperties>
+                        <completionProperties expectedIdleTime="0.234" expectedIdleTime.inherit="false"/>
+                    </applicationProperties>
+                </item>
+                <item guid="344fc22d-992e-4cc7-bbc2-405c2ba623f2" action="command" session="Gateway1" normalOffset="7.442" estimatedStepExecutionTime="0.007" useFieldsInCommand="false">
+                    <command>
+                        <body>ping 10.62.224.62</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.editors.terminal.documents.StepDefaultProperties">
+                        <promptProperties>
+                            <stepPrompts>
+                                <item name="autoPrompt1">
+                                    <Content>R1#</Content>
+                                </item>
+                            </stepPrompts>
+                        </promptProperties>
+                        <completionProperties expectedIdleTime="0.504" expectedIdleTime.inherit="false"/>
+                    </applicationProperties>
+                </item>
+                <item guid="9fbd0622-7a7a-4269-a3ad-ff0de335c5b5" action="close" session="Gateway1" normalOffset="8.74" useFieldsInCommand="false">
+                    <applicationProperties type="com.fnfr.svt.editors.terminal.documents.StepDefaultProperties"/>
+                </item>
+            </steps>
+        </item>
+    </procedures>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<ResponseMapCatalog version="9.4.1.202310041549">
+    <mapCatalog>
+        <item name="file__C__Users_pashok_SPIRENTCOM_Documents_telstra_time_txt.ffrm">
+            <applicability actionType="readFile" command="file:/C:/Users/pashok.SPIRENTCOM/Documents/telstra_time.txt"/>
+        </item>
+        <item name="response_maps/ping_10_62_224_52.ffrm">
+            <applicability actionType="command" command="ping *"/>
+        </item>
+    </mapCatalog>
+</ResponseMapCatalog>

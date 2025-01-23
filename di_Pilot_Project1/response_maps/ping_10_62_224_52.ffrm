@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<ResponseMap version="9.4.1.202310041549">
+    <sampleDictionary>
+        <item name="sample1">
+            <action actionType="command">
+                <command>
+                    <body>ping 10.62.224.52</body>
+                </command>
+            </action>
+            <responseBody>
+Pinging 10.62.224.52 with 32 bytes of data:
+Reply from 10.62.224.52: bytes=32 time=63ms TTL=62
+Reply from 10.62.224.52: bytes=32 time=87ms TTL=62
+Reply from 10.62.224.52: bytes=32 time=51ms TTL=62
+Reply from 10.62.224.52: bytes=32 time=42ms TTL=62
+
+Ping statistics for 10.62.224.52:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 42ms, Maximum = 87ms, Average = 60ms
+
+</responseBody>
+            <contentType>text</contentType>
+            <structuredData>
+&lt;structure xmlns:map=&quot;http://www.fnfr.com/svt/mapping&quot;&gt;
+    &lt;isEmpty&gt;false&lt;/isEmpty&gt;
+    &lt;responseLine/&gt;
+    &lt;promptName&gt;defaultPrompt&lt;/promptName&gt;
+    &lt;echo&gt;ping 10.62.224.52&lt;/echo&gt;
+    &lt;prompt&gt;C:\\\\Users\\\\pashok.SPIRENTCOM\\\\AppData\\\\Local\\\\Apps\\\\Spirent Communications\\\\iTest 9.4&amp;gt;&lt;/prompt&gt;
+&lt;/structure&gt;
+</structuredData>
+            <aliases>
+                <item name="isEmpty">
+                    <queryFormatString>.//isEmpty</queryFormatString>
+                </item>
+                <item name="responseLine">
+                    <queryFormatString>.//responseLine</queryFormatString>
+                </item>
+                <item name="promptName">
+                    <queryFormatString>.//promptName</queryFormatString>
+                </item>
+                <item name="echo">
+                    <queryFormatString>.//echo</queryFormatString>
+                </item>
+                <item name="prompt">
+                    <queryFormatString>.//prompt</queryFormatString>
+                </item>
+            </aliases>
+            <duration>3.4</duration>
+        </item>
+    </sampleDictionary>
+    <mapperProperties>
+        <item type="com.fnfr.svt.mapping.regex.RegexMapperProperties">
+            <regexMaps>
+                <item name="pattern2">
+                    <groups>
+                        <item name="anchor0">
+                            <regex>Packets: Sent =\\s+</regex>
+                            <start>0</start>
+                            <end>16</end>
+                        </item>
+                        <item name="Packets_Sent">
+                            <regex>\\d+</regex>
+                            <named>true</named>
+                            <start>16</start>
+                            <end>17</end>
+                            <suggestions>
+                                <item name=".+">one or more of any character</item>
+                                <item name="[^\r\n]+">one or more of any character except line endings</item>
+                                <item name="\S+">one or more non-whitespace characters</item>
+                                <item name="\w+">one or more word characters</item>
+                                <item name="([-+]?\d+\.?\d*([eE][-+]?\d+)?)">one complex decimal number</item>
+                                <item name="\d+">one or more digits</item>
+                            </suggestions>
+                        </item>
+                        <item name="anchor1">
+                            <regex>, Received =\\s+</regex>
+                            <start>17</start>
+                            <end>30</end>
+                        </item>
+                        <item name="Received">
+                            <regex>\\d+</regex>
+                            <named>true</named>
+                            <start>30</start>
+                            <end>31</end>
+                            <suggestions>
+                                <item name=".+">one or more of any character</item>
+                                <item name="[^\r\n]+">one or more of any character except line endings</item>
+                                <item name="\S+">one or more non-whitespace characters</item>
+                                <item name="\w+">one or more word characters</item>
+                                <item name="([-+]?\d+\.?\d*([eE][-+]?\d+)?)">one complex decimal number</item>
+                                <item name="\d+">one or more digits</item>
+                            </suggestions>
+                        </item>
+                        <item name="anchor2">
+                            <regex>, Lost =\\s+</regex>
+                            <start>31</start>
+                            <end>40</end>
+                        </item>
+                        <item name="Lost">
+                            <regex>\\d+</regex>
+                            <named>true</named>
+                            <start>40</start>
+                            <end>41</end>
+                            <suggestions>
+                                <item name=".+">one or more of any character</item>
+                                <item name="[^\r\n]+">one or more of any character except line endings</item>
+                                <item name="\S+">one or more non-whitespace characters</item>
+                                <item name="\w+">one or more word characters</item>
+                                <item name="([-+]?\d+\.?\d*([eE][-+]?\d+)?)">one complex decimal number</item>
+                                <item name="\d+">one or more digits</item>
+                            </suggestions>
+                        </item>
+                        <item name="anchor3">
+                            <regex>\\s+\\(</regex>
+                            <start>41</start>
+                            <end>43</end>
+                        </item>
+                        <item name="loss">
+                            <regex>\\d+</regex>
+                            <named>true</named>
+                            <start>43</start>
+                            <end>44</end>
+                            <suggestions>
+                                <item name=".+">one or more of any character</item>
+                                <item name="[^\r\n]+">one or more of any character except line endings</item>
+                                <item name="\S+">one or more non-whitespace characters</item>
+                                <item name="\w+">one or more word characters</item>
+                                <item name="([-+]?\d+\.?\d*([eE][-+]?\d+)?)">one complex decimal number</item>
+                                <item name="\d+">one or more digits</item>
+                            </suggestions>
+                        </item>
+                        <item name="anchor4">
+                            <regex>% loss\\),</regex>
+                            <start>44</start>
+                            <end>52</end>
+                        </item>
+                    </groups>
+                    <sampleMatch>Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),</sampleMatch>
+                    <regexMapMode>Line</regexMapMode>
+                </item>
+            </regexMaps>
+        </item>
+    </mapperProperties>
+    <applicabilityProperties actionType="command" command="ping *"/>
+    <xPathVersion>XPATH31</xPathVersion>
+</ResponseMap>

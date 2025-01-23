@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<SessionTemplate version="9.4.1.202310041549">
+    <baseApplication>com.fnfr.svt.applications.cmd</baseApplication>
+    <sessionProperties type="com.fnfr.svt.applications.cmd.CmdSessionProperties"/>
+    <responseLibrary inherit="false">project://di_Pilot_Project1/</responseLibrary>
+    <formMapLibrary inherit="false">project://di_Pilot_Project1/</formMapLibrary>
+    <language>Python</language>
+</SessionTemplate>
