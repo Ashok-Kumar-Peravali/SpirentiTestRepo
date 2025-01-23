@@ -1,0 +1,2278 @@
+<?xml version="1.0"?>
+<testCase version="9.5.1.202405090526">
+    <general>
+        <language>Python</language>
+        <xPathVersion>XPATH31</xPathVersion>
+    </general>
+    <procedures>
+        <item name="main">
+            <steps>
+                <item guid="5608b121-3e8c-4434-8578-5ded7ba14c7d" action="comment" useFieldsInCommand="false">
+                    <command>
+                        <body>Initialise Variables</body>
+                    </command>
+                    <postProcessing>
+                        <analysisRules>
+                            <item>
+                                <extractorInfo extractorType="none">
+                                    <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
+                                </extractorInfo>
+                                <processorInfo ruleType="assert">
+                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                        <expression>1</expression>
+                                        <actionsWhenTrue>
+                                            <item actionId="Eval">
+                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                    <statement>cf_ip=param(&apos;cyberflood/ip&apos;)</statement>
+                                                </actionProperties>
+                                            </item>
+                                            <item actionId="Eval">
+                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                    <statement>cf_user=param(&apos;cyberflood/username&apos;)</statement>
+                                                </actionProperties>
+                                            </item>
+                                            <item actionId="Eval">
+                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                    <statement>cf_pwd=param(&apos;cyberflood/password&apos;)</statement>
+                                                </actionProperties>
+                                            </item>
+                                            <item actionId="Eval">
+                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                    <statement>cf_test_id=param(&apos;cyberflood/test_id&apos;)</statement>
+                                                </actionProperties>
+                                            </item>
+                                            <item actionId="DeclareExecutionIssue">
+                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup" severity="Information">
+                                                    <message>***** Variable Initialised *****</message>
+                                                </actionProperties>
+                                            </item>
+                                        </actionsWhenTrue>
+                                    </ruleProperties>
+                                </processorInfo>
+                            </item>
+                        </analysisRules>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="002fad93-8932-4e02-b6e9-a0c8fc42f103" action="open" session="t1">
+                    <command>
+                        <body>project://di_cyberflood/session_profiles/cyberflood_rest.ffsp</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.OpenStepPropertyGroup">
+                        <stepProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        <sessionProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulSessionProperties" url="https://[cf_ip]/api/v2" url.inherit="false" version="2" version.inherit="false"/>
+                        <sessionClass type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        <sessionVersion type="com.fnfr.documents.PropertyString">9.5.0</sessionVersion>
+                    </applicationProperties>
+                </item>
+                <item guid="a3e966d3-dc3f-4490-8b4e-8f4f17e25b2c" action="eval" useFieldsInCommand="false">
+                    <command>
+                        <body>import json</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="f4fa8a2a-1e4c-4922-9fa5-b87e009572a1" action="POST" session="t1" normalOffset="26.346" estimatedStepExecutionTime="3.129">
+                    <command>
+                        <body>token</body>
+                    </command>
+                    <postProcessing>
+                        <analysisRules>
+                            <item>
+                                <extractorInfo extractorType="query">
+                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                        <query>mapped/Json/xtoken</query>
+                                    </extractorProperties>
+                                </extractorInfo>
+                                <processorInfo ruleType="store">
+                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                        <storageLocation>cf_token</storageLocation>
+                                        <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                        <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
+                                        <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
+                                    </ruleProperties>
+                                </processorInfo>
+                            </item>
+                        </analysisRules>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" httpMethod="POST" httpMethod.inherit="false" action="token" action.inherit="false">
+                        <authentication transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.AuthenticationProperties" authenticationType="Basic" authenticationType.inherit="false" user="[cf_user]" user.inherit="false" password.masked="false" password="[cf_pwd]" password.inherit="false" acceptAllCertificates="true" acceptAllCertificates.inherit="false"/>
+                    </applicationProperties>
+                </item>
+                <item guid="40c5eb09-36ef-4fc3-a636-8554cde73f3e" action="GET" session="t1" estimatedStepExecutionTime="4.342">
+                    <command>
+                        <body>tests/emix/[cf_test_id]</body>
+                    </command>
+                    <postProcessing>
+                        <analysisRules>
+                            <item>
+                                <extractorInfo extractorType="query">
+                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                        <query>responseLine</query>
+                                    </extractorProperties>
+                                </extractorInfo>
+                                <processorInfo ruleType="store">
+                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                        <storageLocation>jsondata</storageLocation>
+                                        <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                        <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
+                                        <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
+                                    </ruleProperties>
+                                </processorInfo>
+                            </item>
+                        </analysisRules>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" httpMethod="GET" httpMethod.inherit="false" message.inherit="false" action="tests/emix/[cf_test_id]" action.inherit="false">
+                        <authentication transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.AuthenticationProperties" user="ashokkumar.p@spirent.com" user.inherit="false" password.masked="true" password="8t+EnBZizaiaXYyO0nPrYQ==" password.inherit="false" acceptAllCertificates="true" acceptAllCertificates.inherit="false"/>
+                        <httpHeader inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
+                            <memberClasses>
+                                <item>com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry</item>
+                            </memberClasses>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Content-Type" header.inherit="false" value="application/json" value.inherit="false"/>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Authorization" header.inherit="false" value="Bearer [cf_token]" value.inherit="false"/>
+                        </httpHeader>
+                    </applicationProperties>
+                </item>
+                <item guid="8f80efa9-ae57-4c4c-aa96-6ca2841e1112" action="eval" useFieldsInCommand="false">
+                    <command>
+                        <body>payload = json.loads(jsondata)</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="480d0166-70f0-45e7-a885-7cbbac9f2ebb" action="eval" useFieldsInCommand="false">
+                    <command>
+                        <body>print(payload)</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="6ced75ea-c2f5-437c-8934-b00ba7adc3d1" action="eval" useFieldsInCommand="false">
+                    <command>
+                        <body>payload[&quot;config&quot;][&quot;trafficMix&quot;][&quot;mixer&quot;][0][&quot;percentage&quot;]=9.0</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="7f1f35ae-be73-41ec-98e6-db5c7e30a702" action="eval" useFieldsInCommand="false">
+                    <command>
+                        <body>payload[&quot;config&quot;][&quot;trafficMix&quot;][&quot;mixer&quot;][1][&quot;percentage&quot;]=11.0</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="3f0f2bd5-606f-492d-a305-2cc653fb34bb" action="eval" useFieldsInCommand="false">
+                    <command>
+                        <body>json_data = json.dumps(payload)</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="ffcfba06-a421-467a-8ff4-842c0a109814" action="PUT" session="t1" estimatedStepExecutionTime="6.411">
+                    <command>
+                        <body>tests/emix/[cf_test_id]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" httpMethod="PUT" httpMethod.inherit="false" message="[json_data]" message.inherit="false" action="tests/emix/[cf_test_id]" action.inherit="false">
+                        <httpHeader inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
+                            <memberClasses>
+                                <item>com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry</item>
+                            </memberClasses>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Content-Type" header.inherit="false" value="application/json" value.inherit="false"/>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Authorization" header.inherit="false" value="Bearer [cf_token]" value.inherit="false"/>
+                        </httpHeader>
+                    </applicationProperties>
+                </item>
+                <item guid="770022db-4ad1-4807-a56c-390f46140674" action="GET" session="t1" estimatedStepExecutionTime="4.342">
+                    <command>
+                        <body>tests/emix/[cf_test_id]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" httpMethod="GET" httpMethod.inherit="false" message.inherit="false" action="tests/emix/[cf_test_id]" action.inherit="false">
+                        <authentication transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.AuthenticationProperties" user="ashokkumar.p@spirent.com" user.inherit="false" password.masked="true" password="8t+EnBZizaiaXYyO0nPrYQ==" password.inherit="false" acceptAllCertificates="true" acceptAllCertificates.inherit="false"/>
+                        <httpHeader inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
+                            <memberClasses>
+                                <item>com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry</item>
+                            </memberClasses>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Content-Type" header.inherit="false" value="application/json" value.inherit="false"/>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Authorization" header.inherit="false" value="Bearer [cf_token]" value.inherit="false"/>
+                        </httpHeader>
+                    </applicationProperties>
+                </item>
+                <item guid="d136c2e0-36cb-4170-a3f9-fd1a7b77579e" action="eval" useFieldsInCommand="false">
+                    <command>
+                        <body>print(jsondata)</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="65cd526e-ff7e-418c-8a2a-ca9a81ab9ecc" action="PUT" session="t1" estimatedStepExecutionTime="4.742">
+                    <command>
+                        <body>tests/emix/[cf_test_id]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" httpMethod="PUT" httpMethod.inherit="false" message="{&quot;id&quot;: &quot;f4edb5ac7fb13590ad39f3e3ebb68617&quot;, &quot;name&quot;: &quot;CR1_TrafficMix_Test&quot;, &quot;lastRunBy&quot;: {&quot;email&quot;: &quot;ashokkumar.p@spirent.com&quot;, &quot;firstName&quot;: &quot;N/A&quot;, &quot;lastName&quot;: &quot;N/A&quot;}, &quot;projectId&quot;: null, &quot;description&quot;: &quot;&quot;, &quot;author&quot;: &quot;ashokkumar.p@spirent.com&quot;, &quot;config&quot;: {&quot;runtimeOptions&quot;: {&quot;jumboFrames&quot;: false, &quot;useRealMac&quot;: true, &quot;delayedReport&quot;: false, &quot;statisticsSamplingInterval&quot;: false, &quot;customSamplingInterval&quot;: 4, &quot;statisticsLevel&quot;: &quot;Full&quot;, &quot;contentFiles&quot;: [], &quot;enableAppendScript&quot;: false, &quot;enablePrependScript&quot;: false, &quot;prependScripts&quot;: [], &quot;appendScripts&quot;: [], &quot;maintainTarget&quot;: true}, &quot;nat&quot;: {&quot;enabled&quot;: false}, &quot;queue&quot;: {&quot;id&quot;: &quot;CR1&quot;, &quot;name&quot;: &quot;CR1&quot;}, &quot;debug&quot;: {&quot;enabled&quot;: true, &quot;client&quot;: {&quot;enabled&quot;: false, &quot;packetTrace&quot;: 5000000}, &quot;server&quot;: {&quot;enabled&quot;: false, &quot;packetTrace&quot;: 5000000}, &quot;logLevel&quot;: 3}, &quot;subnets&quot;: {&quot;client&quot;: [{&quot;routing&quot;: [], &quot;vlanMode&quot;: &quot;Default&quot;, &quot;vlans&quot;: [], &quot;ipQosValue&quot;: &quot;00&quot;, &quot;addressing&quot;: {&quot;type&quot;: &quot;custom&quot;, &quot;address&quot;: &quot;172.29.1.10&quot;, &quot;netmask&quot;: 24, &quot;count&quot;: 50, &quot;forceIpAllocation&quot;: false}, &quot;defaultGateway&quot;: {&quot;enabled&quot;: true, &quot;address&quot;: &quot;172.29.1.1&quot;}, &quot;ipSec&quot;: {&quot;enabled&quot;: false}, &quot;vxLanTunnel&quot;: {&quot;enabled&quot;: false}, &quot;ipFrag&quot;: {&quot;enabled&quot;: false}, &quot;randomize&quot;: false, &quot;mac&quot;: {&quot;enabled&quot;: false}, &quot;type&quot;: &quot;ipv4&quot;, &quot;side&quot;: &quot;client&quot;, &quot;ppp&quot;: {&quot;enabled&quot;: false}, &quot;realism&quot;: {&quot;enabled&quot;: false}, &quot;id&quot;: &quot;106efaa7801f27832e6a1c98ece60642&quot;, &quot;name&quot;: &quot;OPT1-Client&quot;, &quot;description&quot;: &quot;&quot;}], &quot;server&quot;: [{&quot;routing&quot;: [], &quot;vlanMode&quot;: &quot;Default&quot;, &quot;vlans&quot;: [], &quot;ipQosValue&quot;: &quot;00&quot;, &quot;addressing&quot;: {&quot;type&quot;: &quot;custom&quot;, &quot;address&quot;: &quot;172.29.2.10&quot;, &quot;netmask&quot;: 24, &quot;count&quot;: 50, &quot;forceIpAllocation&quot;: false}, &quot;defaultGateway&quot;: {&quot;enabled&quot;: true, &quot;address&quot;: &quot;172.29.2.1&quot;}, &quot;ipSec&quot;: {&quot;enabled&quot;: false}, &quot;vxLanTunnel&quot;: {&quot;enabled&quot;: false}, &quot;ipFrag&quot;: {&quot;enabled&quot;: false}, &quot;randomize&quot;: false, &quot;mac&quot;: {&quot;enabled&quot;: false}, &quot;type&quot;: &quot;ipv4&quot;, &quot;side&quot;: &quot;server&quot;, &quot;ppp&quot;: {&quot;enabled&quot;: false}, &quot;realism&quot;: {&quot;enabled&quot;: false}, &quot;id&quot;: &quot;106efaa7801f27832e6a1c98ece5fcc5&quot;, &quot;name&quot;: &quot;WAN-Server&quot;, &quot;description&quot;: &quot;&quot;}]}, &quot;slots&quot;: [{&quot;client&quot;: {&quot;endpoint&quot;: &quot;interfacec7649126cee0e3b62760d4cca95330ac1/1&quot;, &quot;subnet&quot;: &quot;OPT1-Client&quot;}, &quot;server&quot;: {&quot;endpoint&quot;: &quot;interfacec7649126cee0e3b62760d4cca95330ac1/2&quot;, &quot;subnet&quot;: &quot;WAN-Server&quot;}, &quot;protocols&quot;: [&quot;HTTP 1.0&quot;, &quot;HTTPS 1.0&quot;, &quot;HTTP 1.1&quot;, &quot;HTTPS 1.1&quot;, &quot;FTP&quot;, &quot;Telnet&quot;, &quot;SMTP&quot;, &quot;POP3&quot;, &quot;CIFS/SMB&quot;, &quot;IMAP4&quot;, &quot;RTSP&quot;, &quot;SIP&quot;, &quot;uTorrent&quot;, &quot;Exchange&quot;]}], &quot;criteria&quot;: {&quot;enabled&quot;: true, &quot;failureBandwidth&quot;: 3, &quot;failureTransactions&quot;: 3}, &quot;networks&quot;: {&quot;client&quot;: {&quot;ipV4SegmentSize&quot;: 1460, &quot;ipV6SegmentSize&quot;: 1440, &quot;initialCongestionWindow&quot;: 10, &quot;retries&quot;: 2, &quot;inactivityTimer&quot;: 70000, &quot;receiveWindow&quot;: 65538, &quot;fragmentReassemblyTimer&quot;: 30000, &quot;portRangeLowerBound&quot;: 1024, &quot;portRangeUpperBound&quot;: 65535, &quot;delayedAcks&quot;: {&quot;enabled&quot;: true, &quot;timeout&quot;: 200, &quot;bytes&quot;: 2880}, &quot;portRandomization&quot;: false, &quot;gratuitousArp&quot;: true, &quot;congestionControl&quot;: true, &quot;sackOption&quot;: false, &quot;tcpVegas&quot;: false, &quot;closeWithFin&quot;: false, &quot;tcpTimeout&quot;: 2000, &quot;tcpTimeoutOverride&quot;: false, &quot;name&quot;: &quot;Client Network&quot;, &quot;description&quot;: &quot;&quot;}, &quot;server&quot;: {&quot;ipV4SegmentSize&quot;: 1460, &quot;ipV6SegmentSize&quot;: 1440, &quot;initialCongestionWindow&quot;: 10, &quot;retries&quot;: 2, &quot;inactivityTimer&quot;: 70000, &quot;receiveWindow&quot;: 65538, &quot;delayedAcks&quot;: {&quot;enabled&quot;: true, &quot;timeout&quot;: 200, &quot;bytes&quot;: 2880}, &quot;gratuitousArp&quot;: true, &quot;congestionControl&quot;: true, &quot;sackOption&quot;: false, &quot;tcpVegas&quot;: false, &quot;tcpTimeout&quot;: 2000, &quot;tcpTimeoutOverride&quot;: false, &quot;name&quot;: &quot;Server Network&quot;, &quot;description&quot;: &quot;&quot;}}, &quot;interfaces&quot;: {&quot;client&quot;: [{&quot;portSystemId&quot;: &quot;10.62.224.219/1/1&quot;, &quot;subnetIds&quot;: [&quot;106efaa7801f27832e6a1c98ece60642&quot;]}], &quot;server&quot;: [{&quot;portSystemId&quot;: &quot;10.62.224.219/1/2&quot;, &quot;subnetIds&quot;: [&quot;106efaa7801f27832e6a1c98ece5fcc5&quot;]}]}, &quot;trafficMix&quot;: {&quot;mixer&quot;: [{&quot;percentage&quot;: 9.0, &quot;name&quot;: &quot;HTTP 1.0&quot;, &quot;type&quot;: &quot;protocol&quot;, &quot;config&quot;: {&quot;client&quot;: {&quot;destPort&quot;: 80, &quot;destPortEnabled&quot;: false, &quot;method&quot;: &quot;GET&quot;, &quot;agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64)&quot;, &quot;connections&quot;: 4, &quot;connection&quot;: {&quot;type&quot;: &quot;keepAlive&quot;}, &quot;useCookies&quot;: false, &quot;ackAfterTransactionDone&quot;: false, &quot;followRedirects&quot;: false, &quot;keepAlive&quot;: {&quot;enabled&quot;: true, &quot;count&quot;: 2, &quot;delayType&quot;: &quot;perUser&quot;, &quot;delayTime&quot;: 0, &quot;delayTimeUnit&quot;: &quot;sec&quot;}, &quot;separateConnections&quot;: {&quot;enabled&quot;: false}, &quot;action&quot;: [{&quot;LEVEL&quot;: &quot;1&quot;, &quot;METHOD&quot;: &quot;GET&quot;, &quot;CONNS_ACTIONS&quot;: &quot;2&quot;, &quot;THINK&quot;: 0}]}, &quot;server&quot;: {&quot;port&quot;: 80, &quot;responseBodyType&quot;: {&quot;type&quot;: &quot;fixed&quot;, &quot;config&quot;: {&quot;type&quot;: &quot;default&quot;, &quot;bytes&quot;: 100000, &quot;latency&quot;: 0}}, &quot;type&quot;: &quot;Microsoft-IIS/8.5&quot;, &quot;connectionTermination&quot;: &quot;RST&quot;, &quot;connectionTimeout&quot;: 30000, &quot;tos&quot;: &quot;&quot;}, &quot;supplemental&quot;: {&quot;proxy&quot;: {&quot;enabled&quot;: false}, &quot;authentication&quot;: {&quot;enabled&quot;: false}}}}, {&quot;percentage&quot;: 10.0, &quot;name&quot;: &quot;HTTPS 1.0&quot;, &quot;type&quot;: &quot;protocol&quot;, &quot;config&quot;: {&quot;client&quot;: {&quot;destPort&quot;: 443, &quot;destPortEnabled&quot;: false, &quot;method&quot;: &quot;GET&quot;, &quot;agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64)&quot;, &quot;connections&quot;: 4, &quot;connection&quot;: {&quot;type&quot;: &quot;keepAlive&quot;}, &quot;useCookies&quot;: false, &quot;followRedirects&quot;: false, &quot;keepAlive&quot;: {&quot;enabled&quot;: true, &quot;count&quot;: 2, &quot;delayType&quot;: &quot;perUser&quot;, &quot;delayTime&quot;: 0, &quot;delayTimeUnit&quot;: &quot;sec&quot;}, &quot;separateConnections&quot;: {&quot;enabled&quot;: false}, &quot;ackAfterTransactionDone&quot;: false, &quot;action&quot;: [{&quot;LEVEL&quot;: &quot;1&quot;, &quot;METHOD&quot;: &quot;GET&quot;, &quot;CONNS_ACTIONS&quot;: &quot;2&quot;, &quot;THINK&quot;: 0}]}, &quot;server&quot;: {&quot;port&quot;: 443, &quot;responseBodyType&quot;: {&quot;type&quot;: &quot;fixed&quot;, &quot;config&quot;: {&quot;type&quot;: &quot;default&quot;, &quot;bytes&quot;: 200000, &quot;latency&quot;: 0}}, &quot;type&quot;: &quot;Microsoft-IIS/8.5&quot;, &quot;connectionTermination&quot;: &quot;RST&quot;, &quot;connectionTimeout&quot;: 30000, &quot;tos&quot;: &quot;&quot;}, &quot;supplemental&quot;: {&quot;sslTls&quot;: {&quot;enabled&quot;: true, &quot;sslv20&quot;: false, &quot;sslv30&quot;: false, &quot;tlsv10&quot;: false, &quot;tlsv12&quot;: true, &quot;tlsv13&quot;: false, &quot;certificate&quot;: &quot;server_2048&quot;, &quot;ciphers&quot;: [&quot;AES128-GCM-SHA256&quot;], &quot;resumeSession&quot;: {&quot;enabled&quot;: false}, &quot;bytes&quot;: 16383, &quot;payloadEncryptionOffload&quot;: false, &quot;extendedMasterSecret&quot;: false, &quot;supportedGroups&quot;: {&quot;x25519&quot;: true, &quot;secp256r1&quot;: false, &quot;secp521r1&quot;: false, &quot;secp384r1&quot;: false, &quot;sect163k1&quot;: false, &quot;sect163r1&quot;: false, &quot;sect163r2&quot;: false, &quot;sect193r1&quot;: false, &quot;sect193r2&quot;: false, &quot;sect233k1&quot;: false, &quot;sect233r1&quot;: false, &quot;sect239k1&quot;: false, &quot;sect283k1&quot;: false, &quot;sect283r1&quot;: false, &quot;sect409k1&quot;: false, &quot;sect409r1&quot;: false, &quot;sect571k1&quot;: false, &quot;sect571r1&quot;: false, &quot;secp160k1&quot;: false, &quot;secp160r1&quot;: false, &quot;secp160r2&quot;: false, &quot;secp192k1&quot;: false, &quot;secp192r1&quot;: false, &quot;secp224k1&quot;: false, &quot;secp256k1&quot;: false, &quot;brainpoolP256r1&quot;: false, &quot;brainpoolP384r1&quot;: false, &quot;brainpool512r1&quot;: false, &quot;X448&quot;: false}, &quot;signatureHashAlgorithmsList&quot;: [&quot;RSA_PKCS1_SHA256&quot;]}, &quot;proxy&quot;: {&quot;enabled&quot;: false}, &quot;authentication&quot;: {&quot;enabled&quot;: false}}}}, {&quot;percentage&quot;: 10.0, &quot;name&quot;: &quot;HTTP 1.1&quot;, &quot;type&quot;: &quot;protocol&quot;, &quot;config&quot;: {&quot;client&quot;: {&quot;destPort&quot;: 80, &quot;destPortEnabled&quot;: false, &quot;method&quot;: &quot;GET&quot;, &quot;agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64)&quot;, &quot;connections&quot;: 4, &quot;connection&quot;: {&quot;type&quot;: &quot;keepAlive&quot;}, &quot;useCookies&quot;: false, &quot;ackAfterTransactionDone&quot;: false, &quot;followRedirects&quot;: false, &quot;keepAlive&quot;: {&quot;enabled&quot;: true, &quot;count&quot;: 2, &quot;delayType&quot;: &quot;perUser&quot;, &quot;delayTime&quot;: 0, &quot;delayTimeUnit&quot;: &quot;sec&quot;}, &quot;separateConnections&quot;: {&quot;enabled&quot;: false}, &quot;action&quot;: [{&quot;LEVEL&quot;: &quot;1&quot;, &quot;METHOD&quot;: &quot;GET&quot;, &quot;CONNS_ACTIONS&quot;: &quot;2&quot;, &quot;THINK&quot;: 0}]}, &quot;server&quot;: {&quot;port&quot;: 80, &quot;responseBodyType&quot;: {&quot;type&quot;: &quot;fixed&quot;, &quot;config&quot;: {&quot;type&quot;: &quot;default&quot;, &quot;bytes&quot;: 100000, &quot;latency&quot;: 0}}, &quot;type&quot;: &quot;Microsoft-IIS/8.5&quot;, &quot;connectionTermination&quot;: &quot;RST&quot;, &quot;connectionTimeout&quot;: 30000, &quot;tos&quot;: &quot;&quot;}, &quot;supplemental&quot;: {&quot;proxy&quot;: {&quot;enabled&quot;: false}, &quot;authentication&quot;: {&quot;enabled&quot;: false}}}}, {&quot;percentage&quot;: 10.0, &quot;name&quot;: &quot;HTTPS 1.1&quot;, &quot;type&quot;: &quot;protocol&quot;, &quot;config&quot;: {&quot;client&quot;: {&quot;destPort&quot;: 443, &quot;destPortEnabled&quot;: false, &quot;method&quot;: &quot;GET&quot;, &quot;agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64)&quot;, &quot;connections&quot;: 4, &quot;connection&quot;: {&quot;type&quot;: &quot;keepAlive&quot;}, &quot;useCookies&quot;: false, &quot;followRedirects&quot;: false, &quot;keepAlive&quot;: {&quot;enabled&quot;: true, &quot;count&quot;: 2, &quot;delayType&quot;: &quot;perUser&quot;, &quot;delayTime&quot;: 0, &quot;delayTimeUnit&quot;: &quot;sec&quot;}, &quot;separateConnections&quot;: {&quot;enabled&quot;: false}, &quot;ackAfterTransactionDone&quot;: false, &quot;action&quot;: [{&quot;LEVEL&quot;: &quot;1&quot;, &quot;METHOD&quot;: &quot;GET&quot;, &quot;CONNS_ACTIONS&quot;: &quot;2&quot;, &quot;THINK&quot;: 0}]}, &quot;server&quot;: {&quot;port&quot;: 443, &quot;responseBodyType&quot;: {&quot;type&quot;: &quot;fixed&quot;, &quot;config&quot;: {&quot;type&quot;: &quot;default&quot;, &quot;bytes&quot;: 200000, &quot;latency&quot;: 0}}, &quot;type&quot;: &quot;Microsoft-IIS/8.5&quot;, &quot;connectionTermination&quot;: &quot;FIN&quot;, &quot;connectionTimeout&quot;: 30000, &quot;tos&quot;: &quot;&quot;}, &quot;supplemental&quot;: {&quot;sslTls&quot;: {&quot;enabled&quot;: true, &quot;sslv20&quot;: false, &quot;sslv30&quot;: false, &quot;tlsv10&quot;: false, &quot;tlsv12&quot;: true, &quot;tlsv13&quot;: false, &quot;certificate&quot;: &quot;server_2048&quot;, &quot;ciphers&quot;: [&quot;AES128-GCM-SHA256&quot;], &quot;resumeSession&quot;: {&quot;enabled&quot;: false}, &quot;bytes&quot;: 16383, &quot;payloadEncryptionOffload&quot;: false, &quot;extendedMasterSecret&quot;: false, &quot;supportedGroups&quot;: {&quot;x25519&quot;: true, &quot;secp256r1&quot;: false, &quot;secp521r1&quot;: false, &quot;secp384r1&quot;: false, &quot;sect163k1&quot;: false, &quot;sect163r1&quot;: false, &quot;sect163r2&quot;: false, &quot;sect193r1&quot;: false, &quot;sect193r2&quot;: false, &quot;sect233k1&quot;: false, &quot;sect233r1&quot;: false, &quot;sect239k1&quot;: false, &quot;sect283k1&quot;: false, &quot;sect283r1&quot;: false, &quot;sect409k1&quot;: false, &quot;sect409r1&quot;: false, &quot;sect571k1&quot;: false, &quot;sect571r1&quot;: false, &quot;secp160k1&quot;: false, &quot;secp160r1&quot;: false, &quot;secp160r2&quot;: false, &quot;secp192k1&quot;: false, &quot;secp192r1&quot;: false, &quot;secp224k1&quot;: false, &quot;secp256k1&quot;: false, &quot;brainpoolP256r1&quot;: false, &quot;brainpoolP384r1&quot;: false, &quot;brainpool512r1&quot;: false, &quot;X448&quot;: false}, &quot;signatureHashAlgorithmsList&quot;: [&quot;RSA_PKCS1_SHA256&quot;]}, &quot;proxy&quot;: {&quot;enabled&quot;: false}, &quot;authentication&quot;: {&quot;enabled&quot;: false}}}}, {&quot;percentage&quot;: 10.0, &quot;name&quot;: &quot;FTP&quot;, &quot;type&quot;: &quot;protocol&quot;, &quot;config&quot;: {&quot;port&quot;: 21, &quot;bytes&quot;: 500000, &quot;client&quot;: {&quot;action&quot;: [{&quot;URL&quot;: &quot;500000B&quot;}]}}}, {&quot;percentage&quot;: 10.0, &quot;name&quot;: &quot;Telnet&quot;, &quot;type&quot;: &quot;protocol&quot;, &quot;config&quot;: {&quot;port&quot;: 23, &quot;client&quot;: {&quot;action&quot;: [{&quot;PROFILE&quot;: &quot;STE&quot;}]}}}, {&quot;percentage&quot;: 5.0, &quot;name&quot;: &quot;SMTP&quot;, &quot;type&quot;: &quot;protocol&quot;, &quot;config&quot;: {&quot;port&quot;: 25, &quot;bytes&quot;: 500000, &quot;supplemental&quot;: {&quot;sslTls&quot;: {&quot;enabled&quot;: false, &quot;retryCount&quot;: 0, &quot;retryInterval&quot;: 1000, &quot;sslv20&quot;: false, &quot;sslv30&quot;: false, &quot;tlsv10&quot;: false, &quot;tlsv12&quot;: true, &quot;tlsv13&quot;: false, &quot;certificate&quot;: &quot;server_2048&quot;, &quot;ciphers&quot;: [&quot;AES128-GCM-SHA256&quot;], &quot;bytes&quot;: 16383, &quot;payloadEncryptionOffload&quot;: false, &quot;extendedMasterSecret&quot;: false, &quot;supportedGroups&quot;: {&quot;x25519&quot;: true, &quot;secp256r1&quot;: false, &quot;secp521r1&quot;: false, &quot;secp384r1&quot;: false, &quot;sect163k1&quot;: false, &quot;sect163r1&quot;: false, &quot;sect163r2&quot;: false, &quot;sect193r1&quot;: false, &quot;sect193r2&quot;: false, &quot;sect233k1&quot;: false, &quot;sect233r1&quot;: false, &quot;sect239k1&quot;: false, &quot;sect283k1&quot;: false, &quot;sect283r1&quot;: false, &quot;sect409k1&quot;: false, &quot;sect409r1&quot;: false, &quot;sect571k1&quot;: false, &quot;sect571r1&quot;: false, &quot;secp160k1&quot;: false, &quot;secp160r1&quot;: false, &quot;secp160r2&quot;: false, &quot;secp192k1&quot;: false, &quot;secp192r1&quot;: false, &quot;secp224k1&quot;: false, &quot;secp256k1&quot;: false, &quot;brainpoolP256r1&quot;: false, &quot;brainpoolP384r1&quot;: false, &quot;brainpool512r1&quot;: false, &quot;X448&quot;: false}, &quot;signatureHashAlgorithmsList&quot;: [&quot;RSA_PKCS1_SHA256&quot;]}}, &quot;client&quot;: {&quot;action&quot;: [{&quot;DATA&quot;: &quot;FIXED,500000&quot;, &quot;FROM&quot;: &quot;custom.user@spirent.com&quot;, &quot;TO&quot;: &quot;spirent.user@spirent.com&quot;}]}}}, {&quot;percentage&quot;: 5.0, &quot;name&quot;: &quot;POP3&quot;, &quot;type&quot;: &quot;protocol&quot;, &quot;config&quot;: {&quot;port&quot;: 110, &quot;mailbox&quot;: {&quot;type&quot;: &quot;default&quot;, &quot;size&quot;: &quot;100KB&quot;}, &quot;supplemental&quot;: {&quot;sslTls&quot;: {&quot;enabled&quot;: false, &quot;sslv20&quot;: false, &quot;sslv30&quot;: false, &quot;tlsv10&quot;: false, &quot;tlsv12&quot;: true, &quot;tlsv13&quot;: false, &quot;certificate&quot;: &quot;server_2048&quot;, &quot;ciphers&quot;: [&quot;AES128-GCM-SHA256&quot;], &quot;bytes&quot;: 16383, &quot;payloadEncryptionOffload&quot;: false, &quot;extendedMasterSecret&quot;: false, &quot;supportedGroups&quot;: {&quot;x25519&quot;: true, &quot;secp256r1&quot;: false, &quot;secp521r1&quot;: false, &quot;secp384r1&quot;: false, &quot;sect163k1&quot;: false, &quot;sect163r1&quot;: false, &quot;sect163r2&quot;: false, &quot;sect193r1&quot;: false, &quot;sect193r2&quot;: false, &quot;sect233k1&quot;: false, &quot;sect233r1&quot;: false, &quot;sect239k1&quot;: false, &quot;sect283k1&quot;: false, &quot;sect283r1&quot;: false, &quot;sect409k1&quot;: false, &quot;sect409r1&quot;: false, &quot;sect571k1&quot;: false, &quot;sect571r1&quot;: false, &quot;secp160k1&quot;: false, &quot;secp160r1&quot;: false, &quot;secp160r2&quot;: false, &quot;secp192k1&quot;: false, &quot;secp192r1&quot;: false, &quot;secp224k1&quot;: false, &quot;secp256k1&quot;: false, &quot;brainpoolP256r1&quot;: false, &quot;brainpoolP384r1&quot;: false, &quot;brainpool512r1&quot;: false, &quot;X448&quot;: false}, &quot;signatureHashAlgorithmsList&quot;: [&quot;RSA_PKCS1_SHA256&quot;]}}, &quot;client&quot;: {&quot;action&quot;: [{&quot;USER&quot;: &quot;Spirent&quot;, &quot;PASSWD&quot;: &quot;Spirent&quot;, &quot;COMMANDS&quot;: [&quot;CHECK RETR&quot;]}]}}}, {&quot;percentage&quot;: 5.0, &quot;name&quot;: &quot;CIFS/SMB&quot;, &quot;type&quot;: &quot;protocol&quot;, &quot;config&quot;: {&quot;port&quot;: 445, &quot;domainName&quot;: &quot;spirent&quot;, &quot;bytes&quot;: 600000, &quot;client&quot;: {&quot;action&quot;: [{&quot;AUTHDOMAIN&quot;: &quot;spirent&quot;, &quot;AUTH_TYPE&quot;: &quot;NTLM&quot;, &quot;CIFS_SUB_CMD&quot;: [{&quot;FILENAME&quot;: &quot;testfile&quot;, &quot;OPEN&quot;: null}, {&quot;FILENAME&quot;: &quot;testfile&quot;, &quot;READ&quot;: null}, {&quot;CLOSE&quot;: null, &quot;FILENAME&quot;: &quot;testfile&quot;}], &quot;CONNECTION_TREE&quot;: &quot;/sharefile&quot;, &quot;PASSWD&quot;: &quot; passwd1&quot;, &quot;USER&quot;: &quot;user1&quot;}]}}}, {&quot;percentage&quot;: 5.0, &quot;name&quot;: &quot;IMAP4&quot;, &quot;type&quot;: &quot;protocol&quot;, &quot;config&quot;: {&quot;port&quot;: 143, &quot;min&quot;: 65000, &quot;max&quot;: 65001, &quot;mailboxes&quot;: [{&quot;id&quot;: 0, &quot;unavailable&quot;: 0, &quot;user&quot;: &quot;yansong&quot;, &quot;folders&quot;: [{&quot;folderPath&quot;: &quot;\\\\&quot;inbox\\\\&quot;&quot;, &quot;id&quot;: 0, &quot;maximumMessageLength&quot;: 100, &quot;maximumNumberOfMessages&quot;: 100, &quot;messageFile&quot;: 0, &quot;minimumMessageLength&quot;: 10, &quot;minimumNumberOfMessages&quot;: 10, &quot;path&quot;: &quot;inbox&quot;}]}, {&quot;id&quot;: 1, &quot;unavailable&quot;: 0, &quot;user&quot;: &quot;Spirent&quot;, &quot;folders&quot;: [{&quot;folderPath&quot;: &quot;\\\\&quot;inbox\\\\&quot;&quot;, &quot;id&quot;: 0, &quot;maximumMessageLength&quot;: 65001, &quot;maximumNumberOfMessages&quot;: 20, &quot;messageFile&quot;: 0, &quot;minimumMessageLength&quot;: 65000, &quot;minimumNumberOfMessages&quot;: 1, &quot;path&quot;: &quot;inbox&quot;}]}], &quot;supplemental&quot;: {&quot;sslTls&quot;: {&quot;enabled&quot;: false, &quot;sslv20&quot;: false, &quot;sslv30&quot;: false, &quot;tlsv10&quot;: false, &quot;tlsv12&quot;: true, &quot;tlsv13&quot;: false, &quot;certificate&quot;: &quot;server_2048&quot;, &quot;ciphers&quot;: [&quot;AES128-GCM-SHA256&quot;], &quot;bytes&quot;: 16383, &quot;payloadEncryptionOffload&quot;: false, &quot;extendedMasterSecret&quot;: false, &quot;supportedGroups&quot;: {&quot;x25519&quot;: true, &quot;secp256r1&quot;: false, &quot;secp521r1&quot;: false, &quot;secp384r1&quot;: false, &quot;sect163k1&quot;: false, &quot;sect163r1&quot;: false, &quot;sect163r2&quot;: false, &quot;sect193r1&quot;: false, &quot;sect193r2&quot;: false, &quot;sect233k1&quot;: false, &quot;sect233r1&quot;: false, &quot;sect239k1&quot;: false, &quot;sect283k1&quot;: false, &quot;sect283r1&quot;: false, &quot;sect409k1&quot;: false, &quot;sect409r1&quot;: false, &quot;sect571k1&quot;: false, &quot;sect571r1&quot;: false, &quot;secp160k1&quot;: false, &quot;secp160r1&quot;: false, &quot;secp160r2&quot;: false, &quot;secp192k1&quot;: false, &quot;secp192r1&quot;: false, &quot;secp224k1&quot;: false, &quot;secp256k1&quot;: false, &quot;brainpoolP256r1&quot;: false, &quot;brainpoolP384r1&quot;: false, &quot;brainpool512r1&quot;: false, &quot;X448&quot;: false}, &quot;signatureHashAlgorithmsList&quot;: [&quot;RSA_PKCS1_SHA256&quot;]}}, &quot;client&quot;: {&quot;action&quot;: [{&quot;USER&quot;: &quot;Spirent&quot;, &quot;PASSWD&quot;: &quot;Spirent&quot;, &quot;COMMANDS&quot;: [&quot;SELECT = inbox&quot;, &quot;FETCH_BODY=\\\\&quot;1,3,6:10,14:*\\\\&quot;&quot;, &quot;LOGOUT&quot;]}]}}}, {&quot;percentage&quot;: 5.0, &quot;name&quot;: &quot;RTSP&quot;, &quot;type&quot;: &quot;protocol&quot;, &quot;config&quot;: {&quot;port&quot;: 554, &quot;duration&quot;: 1, &quot;transport&quot;: &quot;UDP&quot;, &quot;client&quot;: {&quot;action&quot;: [{&quot;fileName&quot;: &quot;1sec.mov.caw&quot;}]}}}, {&quot;percentage&quot;: 5.0, &quot;name&quot;: &quot;SIP&quot;, &quot;type&quot;: &quot;protocol&quot;, &quot;config&quot;: {&quot;port&quot;: 5060, &quot;length&quot;: 1000, &quot;client&quot;: {&quot;action&quot;: [{&quot;PHONEBOOK&quot;: &quot;SIPNG_TCP_G711A_BW&quot;}]}}}, {&quot;percentage&quot;: 5.0, &quot;name&quot;: &quot;uTorrent&quot;, &quot;type&quot;: &quot;app&quot;, &quot;config&quot;: {&quot;uTorrent Tracker Server Port (UDP)&quot;: &quot;21472&quot;, &quot;Download File Server Port (TCP)&quot;: &quot;21473&quot;, &quot;File Share Size&quot;: &quot;8 MB&quot;}}, {&quot;percentage&quot;: 5.0, &quot;name&quot;: &quot;Exchange&quot;, &quot;type&quot;: &quot;app&quot;, &quot;config&quot;: {&quot;EXCHANGE Server Port (TCP)&quot;: &quot;5003&quot;}}], &quot;initialType&quot;: &quot;Custom&quot;, &quot;type&quot;: &quot;emix&quot;}, &quot;securityMix&quot;: {&quot;volume&quot;: 1, &quot;profiles&quot;: [], &quot;specialEligibleTests&quot;: null}, &quot;virtualRouters&quot;: {&quot;client&quot;: [], &quot;server&quot;: []}, &quot;trafficPattern&quot;: &quot;Pair&quot;, &quot;loadSpecification&quot;: {&quot;duration&quot;: 330, &quot;startup&quot;: 20, &quot;rampup&quot;: 60, &quot;rampdown&quot;: 60, &quot;shutdown&quot;: 70, &quot;bandwidth&quot;: 1000, &quot;type&quot;: &quot;Bandwidth&quot;, &quot;constraints&quot;: {&quot;enabled&quot;: false}}}, &quot;updatedBy&quot;: &quot;ashokkumar.p@spirent.com&quot;, &quot;updatedAt&quot;: &quot;2024-08-29T08:04:57.091Z&quot;, &quot;createdAt&quot;: &quot;2024-07-15T09:49:07.980Z&quot;}" message.inherit="false" message.sub="false" action="tests/emix/[cf_test_id]" action.inherit="false">
+                        <authentication transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.AuthenticationProperties" authenticationType="Basic" authenticationType.inherit="false" user="ashokkumar.p@spirent.com" user.inherit="false" password.masked="true" password="8t+EnBZizaiaXYyO0nPrYQ==" password.inherit="false" acceptAllCertificates="true" acceptAllCertificates.inherit="false"/>
+                        <httpHeader inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
+                            <memberClasses>
+                                <item>com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry</item>
+                            </memberClasses>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Content-Type" header.inherit="false" value="application/json" value.inherit="false"/>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Authorization" header.inherit="false" value="Bearer [cf_token]" value.inherit="false"/>
+                        </httpHeader>
+                    </applicationProperties>
+                </item>
+                <item guid="22c74b35-765f-42b3-a921-d8a20f3deef4" action="PUT" session="t1" estimatedStepExecutionTime="4.742">
+                    <command>
+                        <body>https://global-demo-cf.cf-tm.lwd.int.spirent.io/api/v2/tests/emix/f4edb5ac7fb13590ad39f3e3ebb68617</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" httpMethod="PUT" httpMethod.inherit="false" action="https://global-demo-cf.cf-tm.lwd.int.spirent.io/api/v2/tests/emix/f4edb5ac7fb13590ad39f3e3ebb68617" action.inherit="false">
+                        <message inherit="false" sub="false">{
+  &quot;id&quot;: &quot;f4edb5ac7fb13590ad39f3e3ebb68617&quot;,
+  &quot;name&quot;: &quot;CR1_TrafficMix_Test&quot;,
+  &quot;lastRunBy&quot;: {
+    &quot;email&quot;: &quot;ashokkumar.p@spirent.com&quot;,
+    &quot;firstName&quot;: &quot;N/A&quot;,
+    &quot;lastName&quot;: &quot;N/A&quot;
+  },
+  &quot;projectId&quot;: null,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;author&quot;: &quot;ashokkumar.p@spirent.com&quot;,
+  &quot;config&quot;: {
+    &quot;runtimeOptions&quot;: {
+      &quot;jumboFrames&quot;: false,
+      &quot;useRealMac&quot;: true,
+      &quot;delayedReport&quot;: false,
+      &quot;statisticsSamplingInterval&quot;: false,
+      &quot;customSamplingInterval&quot;: 4,
+      &quot;statisticsLevel&quot;: &quot;Full&quot;,
+      &quot;contentFiles&quot;: [
+        
+      ],
+      &quot;enableAppendScript&quot;: false,
+      &quot;enablePrependScript&quot;: false,
+      &quot;prependScripts&quot;: [
+        
+      ],
+      &quot;appendScripts&quot;: [
+        
+      ],
+      &quot;maintainTarget&quot;: true
+    },
+    &quot;nat&quot;: {
+      &quot;enabled&quot;: false
+    },
+    &quot;queue&quot;: {
+      &quot;id&quot;: &quot;CR1&quot;,
+      &quot;name&quot;: &quot;CR1&quot;
+    },
+    &quot;debug&quot;: {
+      &quot;enabled&quot;: true,
+      &quot;client&quot;: {
+        &quot;enabled&quot;: false,
+        &quot;packetTrace&quot;: 5000000
+      },
+      &quot;server&quot;: {
+        &quot;enabled&quot;: false,
+        &quot;packetTrace&quot;: 5000000
+      },
+      &quot;logLevel&quot;: 3
+    },
+    &quot;subnets&quot;: {
+      &quot;client&quot;: [
+        {
+          &quot;routing&quot;: [
+            
+          ],
+          &quot;vlanMode&quot;: &quot;Default&quot;,
+          &quot;vlans&quot;: [
+            
+          ],
+          &quot;ipQosValue&quot;: &quot;00&quot;,
+          &quot;addressing&quot;: {
+            &quot;type&quot;: &quot;custom&quot;,
+            &quot;address&quot;: &quot;172.29.1.10&quot;,
+            &quot;netmask&quot;: 24,
+            &quot;count&quot;: 50,
+            &quot;forceIpAllocation&quot;: false
+          },
+          &quot;defaultGateway&quot;: {
+            &quot;enabled&quot;: true,
+            &quot;address&quot;: &quot;172.29.1.1&quot;
+          },
+          &quot;ipSec&quot;: {
+            &quot;enabled&quot;: false
+          },
+          &quot;vxLanTunnel&quot;: {
+            &quot;enabled&quot;: false
+          },
+          &quot;ipFrag&quot;: {
+            &quot;enabled&quot;: false
+          },
+          &quot;randomize&quot;: false,
+          &quot;mac&quot;: {
+            &quot;enabled&quot;: false
+          },
+          &quot;type&quot;: &quot;ipv4&quot;,
+          &quot;side&quot;: &quot;client&quot;,
+          &quot;ppp&quot;: {
+            &quot;enabled&quot;: false
+          },
+          &quot;realism&quot;: {
+            &quot;enabled&quot;: false
+          },
+          &quot;id&quot;: &quot;106efaa7801f27832e6a1c98ece60642&quot;,
+          &quot;name&quot;: &quot;OPT1-Client&quot;,
+          &quot;description&quot;: &quot;&quot;
+        }
+      ],
+      &quot;server&quot;: [
+        {
+          &quot;routing&quot;: [
+            
+          ],
+          &quot;vlanMode&quot;: &quot;Default&quot;,
+          &quot;vlans&quot;: [
+            
+          ],
+          &quot;ipQosValue&quot;: &quot;00&quot;,
+          &quot;addressing&quot;: {
+            &quot;type&quot;: &quot;custom&quot;,
+            &quot;address&quot;: &quot;172.29.2.10&quot;,
+            &quot;netmask&quot;: 24,
+            &quot;count&quot;: 50,
+            &quot;forceIpAllocation&quot;: false
+          },
+          &quot;defaultGateway&quot;: {
+            &quot;enabled&quot;: true,
+            &quot;address&quot;: &quot;172.29.2.1&quot;
+          },
+          &quot;ipSec&quot;: {
+            &quot;enabled&quot;: false
+          },
+          &quot;vxLanTunnel&quot;: {
+            &quot;enabled&quot;: false
+          },
+          &quot;ipFrag&quot;: {
+            &quot;enabled&quot;: false
+          },
+          &quot;randomize&quot;: false,
+          &quot;mac&quot;: {
+            &quot;enabled&quot;: false
+          },
+          &quot;type&quot;: &quot;ipv4&quot;,
+          &quot;side&quot;: &quot;server&quot;,
+          &quot;ppp&quot;: {
+            &quot;enabled&quot;: false
+          },
+          &quot;realism&quot;: {
+            &quot;enabled&quot;: false
+          },
+          &quot;id&quot;: &quot;106efaa7801f27832e6a1c98ece5fcc5&quot;,
+          &quot;name&quot;: &quot;WAN-Server&quot;,
+          &quot;description&quot;: &quot;&quot;
+        }
+      ]
+    },
+    &quot;slots&quot;: [
+      {
+        &quot;client&quot;: {
+          &quot;endpoint&quot;: &quot;interfacec7649126cee0e3b62760d4cca95330ac1/1&quot;,
+          &quot;subnet&quot;: &quot;OPT1-Client&quot;
+        },
+        &quot;server&quot;: {
+          &quot;endpoint&quot;: &quot;interfacec7649126cee0e3b62760d4cca95330ac1/2&quot;,
+          &quot;subnet&quot;: &quot;WAN-Server&quot;
+        },
+        &quot;protocols&quot;: [
+          &quot;HTTP 1.0&quot;,
+          &quot;HTTPS 1.0&quot;,
+          &quot;HTTP 1.1&quot;,
+          &quot;HTTPS 1.1&quot;,
+          &quot;FTP&quot;,
+          &quot;Telnet&quot;,
+          &quot;SMTP&quot;,
+          &quot;POP3&quot;,
+          &quot;CIFS/SMB&quot;,
+          &quot;IMAP4&quot;,
+          &quot;RTSP&quot;,
+          &quot;SIP&quot;,
+          &quot;uTorrent&quot;,
+          &quot;Exchange&quot;
+        ]
+      }
+    ],
+    &quot;criteria&quot;: {
+      &quot;enabled&quot;: true,
+      &quot;failureBandwidth&quot;: 3,
+      &quot;failureTransactions&quot;: 3
+    },
+    &quot;networks&quot;: {
+      &quot;client&quot;: {
+        &quot;ipV4SegmentSize&quot;: 1460,
+        &quot;ipV6SegmentSize&quot;: 1440,
+        &quot;initialCongestionWindow&quot;: 10,
+        &quot;retries&quot;: 2,
+        &quot;inactivityTimer&quot;: 70000,
+        &quot;receiveWindow&quot;: 65538,
+        &quot;fragmentReassemblyTimer&quot;: 30000,
+        &quot;portRangeLowerBound&quot;: 1024,
+        &quot;portRangeUpperBound&quot;: 65535,
+        &quot;delayedAcks&quot;: {
+          &quot;enabled&quot;: true,
+          &quot;timeout&quot;: 200,
+          &quot;bytes&quot;: 2880
+        },
+        &quot;portRandomization&quot;: false,
+        &quot;gratuitousArp&quot;: true,
+        &quot;congestionControl&quot;: true,
+        &quot;sackOption&quot;: false,
+        &quot;tcpVegas&quot;: false,
+        &quot;closeWithFin&quot;: false,
+        &quot;tcpTimeout&quot;: 2000,
+        &quot;tcpTimeoutOverride&quot;: false,
+        &quot;name&quot;: &quot;Client Network&quot;,
+        &quot;description&quot;: &quot;&quot;
+      },
+      &quot;server&quot;: {
+        &quot;ipV4SegmentSize&quot;: 1460,
+        &quot;ipV6SegmentSize&quot;: 1440,
+        &quot;initialCongestionWindow&quot;: 10,
+        &quot;retries&quot;: 2,
+        &quot;inactivityTimer&quot;: 70000,
+        &quot;receiveWindow&quot;: 65538,
+        &quot;delayedAcks&quot;: {
+          &quot;enabled&quot;: true,
+          &quot;timeout&quot;: 200,
+          &quot;bytes&quot;: 2880
+        },
+        &quot;gratuitousArp&quot;: true,
+        &quot;congestionControl&quot;: true,
+        &quot;sackOption&quot;: false,
+        &quot;tcpVegas&quot;: false,
+        &quot;tcpTimeout&quot;: 2000,
+        &quot;tcpTimeoutOverride&quot;: false,
+        &quot;name&quot;: &quot;Server Network&quot;,
+        &quot;description&quot;: &quot;&quot;
+      }
+    },
+    &quot;interfaces&quot;: {
+      &quot;client&quot;: [
+        {
+          &quot;portSystemId&quot;: &quot;10.62.224.219/1/1&quot;,
+          &quot;subnetIds&quot;: [
+            &quot;106efaa7801f27832e6a1c98ece60642&quot;
+          ]
+        }
+      ],
+      &quot;server&quot;: [
+        {
+          &quot;portSystemId&quot;: &quot;10.62.224.219/1/2&quot;,
+          &quot;subnetIds&quot;: [
+            &quot;106efaa7801f27832e6a1c98ece5fcc5&quot;
+          ]
+        }
+      ]
+    },
+    &quot;trafficMix&quot;: {
+      &quot;mixer&quot;: [
+        {
+          &quot;percentage&quot;: 10.0,
+          &quot;name&quot;: &quot;HTTP 1.0&quot;,
+          &quot;type&quot;: &quot;protocol&quot;,
+          &quot;config&quot;: {
+            &quot;client&quot;: {
+              &quot;destPort&quot;: 80,
+              &quot;destPortEnabled&quot;: false,
+              &quot;method&quot;: &quot;GET&quot;,
+              &quot;agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64)&quot;,
+              &quot;connections&quot;: 4,
+              &quot;connection&quot;: {
+                &quot;type&quot;: &quot;keepAlive&quot;
+              },
+              &quot;useCookies&quot;: false,
+              &quot;ackAfterTransactionDone&quot;: false,
+              &quot;followRedirects&quot;: false,
+              &quot;keepAlive&quot;: {
+                &quot;enabled&quot;: true,
+                &quot;count&quot;: 2,
+                &quot;delayType&quot;: &quot;perUser&quot;,
+                &quot;delayTime&quot;: 0,
+                &quot;delayTimeUnit&quot;: &quot;sec&quot;
+              },
+              &quot;separateConnections&quot;: {
+                &quot;enabled&quot;: false
+              },
+              &quot;action&quot;: [
+                {
+                  &quot;LEVEL&quot;: &quot;1&quot;,
+                  &quot;METHOD&quot;: &quot;GET&quot;,
+                  &quot;CONNS_ACTIONS&quot;: &quot;2&quot;,
+                  &quot;THINK&quot;: 0
+                }
+              ]
+            },
+            &quot;server&quot;: {
+              &quot;port&quot;: 80,
+              &quot;responseBodyType&quot;: {
+                &quot;type&quot;: &quot;fixed&quot;,
+                &quot;config&quot;: {
+                  &quot;type&quot;: &quot;default&quot;,
+                  &quot;bytes&quot;: 100000,
+                  &quot;latency&quot;: 0
+                }
+              },
+              &quot;type&quot;: &quot;Microsoft-IIS/8.5&quot;,
+              &quot;connectionTermination&quot;: &quot;RST&quot;,
+              &quot;connectionTimeout&quot;: 30000,
+              &quot;tos&quot;: &quot;&quot;
+            },
+            &quot;supplemental&quot;: {
+              &quot;proxy&quot;: {
+                &quot;enabled&quot;: false
+              },
+              &quot;authentication&quot;: {
+                &quot;enabled&quot;: false
+              }
+            }
+          }
+        },
+        {
+          &quot;percentage&quot;: 10.0,
+          &quot;name&quot;: &quot;HTTPS 1.0&quot;,
+          &quot;type&quot;: &quot;protocol&quot;,
+          &quot;config&quot;: {
+            &quot;client&quot;: {
+              &quot;destPort&quot;: 443,
+              &quot;destPortEnabled&quot;: false,
+              &quot;method&quot;: &quot;GET&quot;,
+              &quot;agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64)&quot;,
+              &quot;connections&quot;: 4,
+              &quot;connection&quot;: {
+                &quot;type&quot;: &quot;keepAlive&quot;
+              },
+              &quot;useCookies&quot;: false,
+              &quot;followRedirects&quot;: false,
+              &quot;keepAlive&quot;: {
+                &quot;enabled&quot;: true,
+                &quot;count&quot;: 2,
+                &quot;delayType&quot;: &quot;perUser&quot;,
+                &quot;delayTime&quot;: 0,
+                &quot;delayTimeUnit&quot;: &quot;sec&quot;
+              },
+              &quot;separateConnections&quot;: {
+                &quot;enabled&quot;: false
+              },
+              &quot;ackAfterTransactionDone&quot;: false,
+              &quot;action&quot;: [
+                {
+                  &quot;LEVEL&quot;: &quot;1&quot;,
+                  &quot;METHOD&quot;: &quot;GET&quot;,
+                  &quot;CONNS_ACTIONS&quot;: &quot;2&quot;,
+                  &quot;THINK&quot;: 0
+                }
+              ]
+            },
+            &quot;server&quot;: {
+              &quot;port&quot;: 443,
+              &quot;responseBodyType&quot;: {
+                &quot;type&quot;: &quot;fixed&quot;,
+                &quot;config&quot;: {
+                  &quot;type&quot;: &quot;default&quot;,
+                  &quot;bytes&quot;: 200000,
+                  &quot;latency&quot;: 0
+                }
+              },
+              &quot;type&quot;: &quot;Microsoft-IIS/8.5&quot;,
+              &quot;connectionTermination&quot;: &quot;RST&quot;,
+              &quot;connectionTimeout&quot;: 30000,
+              &quot;tos&quot;: &quot;&quot;
+            },
+            &quot;supplemental&quot;: {
+              &quot;sslTls&quot;: {
+                &quot;enabled&quot;: true,
+                &quot;sslv20&quot;: false,
+                &quot;sslv30&quot;: false,
+                &quot;tlsv10&quot;: false,
+                &quot;tlsv12&quot;: true,
+                &quot;tlsv13&quot;: false,
+                &quot;certificate&quot;: &quot;server_2048&quot;,
+                &quot;ciphers&quot;: [
+                  &quot;AES128-GCM-SHA256&quot;
+                ],
+                &quot;resumeSession&quot;: {
+                  &quot;enabled&quot;: false
+                },
+                &quot;bytes&quot;: 16383,
+                &quot;payloadEncryptionOffload&quot;: false,
+                &quot;extendedMasterSecret&quot;: false,
+                &quot;supportedGroups&quot;: {
+                  &quot;x25519&quot;: true,
+                  &quot;secp256r1&quot;: false,
+                  &quot;secp521r1&quot;: false,
+                  &quot;secp384r1&quot;: false,
+                  &quot;sect163k1&quot;: false,
+                  &quot;sect163r1&quot;: false,
+                  &quot;sect163r2&quot;: false,
+                  &quot;sect193r1&quot;: false,
+                  &quot;sect193r2&quot;: false,
+                  &quot;sect233k1&quot;: false,
+                  &quot;sect233r1&quot;: false,
+                  &quot;sect239k1&quot;: false,
+                  &quot;sect283k1&quot;: false,
+                  &quot;sect283r1&quot;: false,
+                  &quot;sect409k1&quot;: false,
+                  &quot;sect409r1&quot;: false,
+                  &quot;sect571k1&quot;: false,
+                  &quot;sect571r1&quot;: false,
+                  &quot;secp160k1&quot;: false,
+                  &quot;secp160r1&quot;: false,
+                  &quot;secp160r2&quot;: false,
+                  &quot;secp192k1&quot;: false,
+                  &quot;secp192r1&quot;: false,
+                  &quot;secp224k1&quot;: false,
+                  &quot;secp256k1&quot;: false,
+                  &quot;brainpoolP256r1&quot;: false,
+                  &quot;brainpoolP384r1&quot;: false,
+                  &quot;brainpool512r1&quot;: false,
+                  &quot;X448&quot;: false
+                },
+                &quot;signatureHashAlgorithmsList&quot;: [
+                  &quot;RSA_PKCS1_SHA256&quot;
+                ]
+              },
+              &quot;proxy&quot;: {
+                &quot;enabled&quot;: false
+              },
+              &quot;authentication&quot;: {
+                &quot;enabled&quot;: false
+              }
+            }
+          }
+        },
+        {
+          &quot;percentage&quot;: 10.0,
+          &quot;name&quot;: &quot;HTTP 1.1&quot;,
+          &quot;type&quot;: &quot;protocol&quot;,
+          &quot;config&quot;: {
+            &quot;client&quot;: {
+              &quot;destPort&quot;: 80,
+              &quot;destPortEnabled&quot;: false,
+              &quot;method&quot;: &quot;GET&quot;,
+              &quot;agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64)&quot;,
+              &quot;connections&quot;: 4,
+              &quot;connection&quot;: {
+                &quot;type&quot;: &quot;keepAlive&quot;
+              },
+              &quot;useCookies&quot;: false,
+              &quot;ackAfterTransactionDone&quot;: false,
+              &quot;followRedirects&quot;: false,
+              &quot;keepAlive&quot;: {
+                &quot;enabled&quot;: true,
+                &quot;count&quot;: 2,
+                &quot;delayType&quot;: &quot;perUser&quot;,
+                &quot;delayTime&quot;: 0,
+                &quot;delayTimeUnit&quot;: &quot;sec&quot;
+              },
+              &quot;separateConnections&quot;: {
+                &quot;enabled&quot;: false
+              },
+              &quot;action&quot;: [
+                {
+                  &quot;LEVEL&quot;: &quot;1&quot;,
+                  &quot;METHOD&quot;: &quot;GET&quot;,
+                  &quot;CONNS_ACTIONS&quot;: &quot;2&quot;,
+                  &quot;THINK&quot;: 0
+                }
+              ]
+            },
+            &quot;server&quot;: {
+              &quot;port&quot;: 80,
+              &quot;responseBodyType&quot;: {
+                &quot;type&quot;: &quot;fixed&quot;,
+                &quot;config&quot;: {
+                  &quot;type&quot;: &quot;default&quot;,
+                  &quot;bytes&quot;: 100000,
+                  &quot;latency&quot;: 0
+                }
+              },
+              &quot;type&quot;: &quot;Microsoft-IIS/8.5&quot;,
+              &quot;connectionTermination&quot;: &quot;RST&quot;,
+              &quot;connectionTimeout&quot;: 30000,
+              &quot;tos&quot;: &quot;&quot;
+            },
+            &quot;supplemental&quot;: {
+              &quot;proxy&quot;: {
+                &quot;enabled&quot;: false
+              },
+              &quot;authentication&quot;: {
+                &quot;enabled&quot;: false
+              }
+            }
+          }
+        },
+        {
+          &quot;percentage&quot;: 10.0,
+          &quot;name&quot;: &quot;HTTPS 1.1&quot;,
+          &quot;type&quot;: &quot;protocol&quot;,
+          &quot;config&quot;: {
+            &quot;client&quot;: {
+              &quot;destPort&quot;: 443,
+              &quot;destPortEnabled&quot;: false,
+              &quot;method&quot;: &quot;GET&quot;,
+              &quot;agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64)&quot;,
+              &quot;connections&quot;: 4,
+              &quot;connection&quot;: {
+                &quot;type&quot;: &quot;keepAlive&quot;
+              },
+              &quot;useCookies&quot;: false,
+              &quot;followRedirects&quot;: false,
+              &quot;keepAlive&quot;: {
+                &quot;enabled&quot;: true,
+                &quot;count&quot;: 2,
+                &quot;delayType&quot;: &quot;perUser&quot;,
+                &quot;delayTime&quot;: 0,
+                &quot;delayTimeUnit&quot;: &quot;sec&quot;
+              },
+              &quot;separateConnections&quot;: {
+                &quot;enabled&quot;: false
+              },
+              &quot;ackAfterTransactionDone&quot;: false,
+              &quot;action&quot;: [
+                {
+                  &quot;LEVEL&quot;: &quot;1&quot;,
+                  &quot;METHOD&quot;: &quot;GET&quot;,
+                  &quot;CONNS_ACTIONS&quot;: &quot;2&quot;,
+                  &quot;THINK&quot;: 0
+                }
+              ]
+            },
+            &quot;server&quot;: {
+              &quot;port&quot;: 443,
+              &quot;responseBodyType&quot;: {
+                &quot;type&quot;: &quot;fixed&quot;,
+                &quot;config&quot;: {
+                  &quot;type&quot;: &quot;default&quot;,
+                  &quot;bytes&quot;: 200000,
+                  &quot;latency&quot;: 0
+                }
+              },
+              &quot;type&quot;: &quot;Microsoft-IIS/8.5&quot;,
+              &quot;connectionTermination&quot;: &quot;FIN&quot;,
+              &quot;connectionTimeout&quot;: 30000,
+              &quot;tos&quot;: &quot;&quot;
+            },
+            &quot;supplemental&quot;: {
+              &quot;sslTls&quot;: {
+                &quot;enabled&quot;: true,
+                &quot;sslv20&quot;: false,
+                &quot;sslv30&quot;: false,
+                &quot;tlsv10&quot;: false,
+                &quot;tlsv12&quot;: true,
+                &quot;tlsv13&quot;: false,
+                &quot;certificate&quot;: &quot;server_2048&quot;,
+                &quot;ciphers&quot;: [
+                  &quot;AES128-GCM-SHA256&quot;
+                ],
+                &quot;resumeSession&quot;: {
+                  &quot;enabled&quot;: false
+                },
+                &quot;bytes&quot;: 16383,
+                &quot;payloadEncryptionOffload&quot;: false,
+                &quot;extendedMasterSecret&quot;: false,
+                &quot;supportedGroups&quot;: {
+                  &quot;x25519&quot;: true,
+                  &quot;secp256r1&quot;: false,
+                  &quot;secp521r1&quot;: false,
+                  &quot;secp384r1&quot;: false,
+                  &quot;sect163k1&quot;: false,
+                  &quot;sect163r1&quot;: false,
+                  &quot;sect163r2&quot;: false,
+                  &quot;sect193r1&quot;: false,
+                  &quot;sect193r2&quot;: false,
+                  &quot;sect233k1&quot;: false,
+                  &quot;sect233r1&quot;: false,
+                  &quot;sect239k1&quot;: false,
+                  &quot;sect283k1&quot;: false,
+                  &quot;sect283r1&quot;: false,
+                  &quot;sect409k1&quot;: false,
+                  &quot;sect409r1&quot;: false,
+                  &quot;sect571k1&quot;: false,
+                  &quot;sect571r1&quot;: false,
+                  &quot;secp160k1&quot;: false,
+                  &quot;secp160r1&quot;: false,
+                  &quot;secp160r2&quot;: false,
+                  &quot;secp192k1&quot;: false,
+                  &quot;secp192r1&quot;: false,
+                  &quot;secp224k1&quot;: false,
+                  &quot;secp256k1&quot;: false,
+                  &quot;brainpoolP256r1&quot;: false,
+                  &quot;brainpoolP384r1&quot;: false,
+                  &quot;brainpool512r1&quot;: false,
+                  &quot;X448&quot;: false
+                },
+                &quot;signatureHashAlgorithmsList&quot;: [
+                  &quot;RSA_PKCS1_SHA256&quot;
+                ]
+              },
+              &quot;proxy&quot;: {
+                &quot;enabled&quot;: false
+              },
+              &quot;authentication&quot;: {
+                &quot;enabled&quot;: false
+              }
+            }
+          }
+        },
+        {
+          &quot;percentage&quot;: 10.0,
+          &quot;name&quot;: &quot;FTP&quot;,
+          &quot;type&quot;: &quot;protocol&quot;,
+          &quot;config&quot;: {
+            &quot;port&quot;: 21,
+            &quot;bytes&quot;: 500000,
+            &quot;client&quot;: {
+              &quot;action&quot;: [
+                {
+                  &quot;URL&quot;: &quot;500000B&quot;
+                }
+              ]
+            }
+          }
+        },
+        {
+          &quot;percentage&quot;: 10.0,
+          &quot;name&quot;: &quot;Telnet&quot;,
+          &quot;type&quot;: &quot;protocol&quot;,
+          &quot;config&quot;: {
+            &quot;port&quot;: 23,
+            &quot;client&quot;: {
+              &quot;action&quot;: [
+                {
+                  &quot;PROFILE&quot;: &quot;STE&quot;
+                }
+              ]
+            }
+          }
+        },
+        {
+          &quot;percentage&quot;: 5.0,
+          &quot;name&quot;: &quot;SMTP&quot;,
+          &quot;type&quot;: &quot;protocol&quot;,
+          &quot;config&quot;: {
+            &quot;port&quot;: 25,
+            &quot;bytes&quot;: 500000,
+            &quot;supplemental&quot;: {
+              &quot;sslTls&quot;: {
+                &quot;enabled&quot;: false,
+                &quot;retryCount&quot;: 0,
+                &quot;retryInterval&quot;: 1000,
+                &quot;sslv20&quot;: false,
+                &quot;sslv30&quot;: false,
+                &quot;tlsv10&quot;: false,
+                &quot;tlsv12&quot;: true,
+                &quot;tlsv13&quot;: false,
+                &quot;certificate&quot;: &quot;server_2048&quot;,
+                &quot;ciphers&quot;: [
+                  &quot;AES128-GCM-SHA256&quot;
+                ],
+                &quot;bytes&quot;: 16383,
+                &quot;payloadEncryptionOffload&quot;: false,
+                &quot;extendedMasterSecret&quot;: false,
+                &quot;supportedGroups&quot;: {
+                  &quot;x25519&quot;: true,
+                  &quot;secp256r1&quot;: false,
+                  &quot;secp521r1&quot;: false,
+                  &quot;secp384r1&quot;: false,
+                  &quot;sect163k1&quot;: false,
+                  &quot;sect163r1&quot;: false,
+                  &quot;sect163r2&quot;: false,
+                  &quot;sect193r1&quot;: false,
+                  &quot;sect193r2&quot;: false,
+                  &quot;sect233k1&quot;: false,
+                  &quot;sect233r1&quot;: false,
+                  &quot;sect239k1&quot;: false,
+                  &quot;sect283k1&quot;: false,
+                  &quot;sect283r1&quot;: false,
+                  &quot;sect409k1&quot;: false,
+                  &quot;sect409r1&quot;: false,
+                  &quot;sect571k1&quot;: false,
+                  &quot;sect571r1&quot;: false,
+                  &quot;secp160k1&quot;: false,
+                  &quot;secp160r1&quot;: false,
+                  &quot;secp160r2&quot;: false,
+                  &quot;secp192k1&quot;: false,
+                  &quot;secp192r1&quot;: false,
+                  &quot;secp224k1&quot;: false,
+                  &quot;secp256k1&quot;: false,
+                  &quot;brainpoolP256r1&quot;: false,
+                  &quot;brainpoolP384r1&quot;: false,
+                  &quot;brainpool512r1&quot;: false,
+                  &quot;X448&quot;: false
+                },
+                &quot;signatureHashAlgorithmsList&quot;: [
+                  &quot;RSA_PKCS1_SHA256&quot;
+                ]
+              }
+            },
+            &quot;client&quot;: {
+              &quot;action&quot;: [
+                {
+                  &quot;DATA&quot;: &quot;FIXED,500000&quot;,
+                  &quot;FROM&quot;: &quot;custom.user@spirent.com&quot;,
+                  &quot;TO&quot;: &quot;spirent.user@spirent.com&quot;
+                }
+              ]
+            }
+          }
+        },
+        {
+          &quot;percentage&quot;: 5.0,
+          &quot;name&quot;: &quot;POP3&quot;,
+          &quot;type&quot;: &quot;protocol&quot;,
+          &quot;config&quot;: {
+            &quot;port&quot;: 110,
+            &quot;mailbox&quot;: {
+              &quot;type&quot;: &quot;default&quot;,
+              &quot;size&quot;: &quot;100KB&quot;
+            },
+            &quot;supplemental&quot;: {
+              &quot;sslTls&quot;: {
+                &quot;enabled&quot;: false,
+                &quot;sslv20&quot;: false,
+                &quot;sslv30&quot;: false,
+                &quot;tlsv10&quot;: false,
+                &quot;tlsv12&quot;: true,
+                &quot;tlsv13&quot;: false,
+                &quot;certificate&quot;: &quot;server_2048&quot;,
+                &quot;ciphers&quot;: [
+                  &quot;AES128-GCM-SHA256&quot;
+                ],
+                &quot;bytes&quot;: 16383,
+                &quot;payloadEncryptionOffload&quot;: false,
+                &quot;extendedMasterSecret&quot;: false,
+                &quot;supportedGroups&quot;: {
+                  &quot;x25519&quot;: true,
+                  &quot;secp256r1&quot;: false,
+                  &quot;secp521r1&quot;: false,
+                  &quot;secp384r1&quot;: false,
+                  &quot;sect163k1&quot;: false,
+                  &quot;sect163r1&quot;: false,
+                  &quot;sect163r2&quot;: false,
+                  &quot;sect193r1&quot;: false,
+                  &quot;sect193r2&quot;: false,
+                  &quot;sect233k1&quot;: false,
+                  &quot;sect233r1&quot;: false,
+                  &quot;sect239k1&quot;: false,
+                  &quot;sect283k1&quot;: false,
+                  &quot;sect283r1&quot;: false,
+                  &quot;sect409k1&quot;: false,
+                  &quot;sect409r1&quot;: false,
+                  &quot;sect571k1&quot;: false,
+                  &quot;sect571r1&quot;: false,
+                  &quot;secp160k1&quot;: false,
+                  &quot;secp160r1&quot;: false,
+                  &quot;secp160r2&quot;: false,
+                  &quot;secp192k1&quot;: false,
+                  &quot;secp192r1&quot;: false,
+                  &quot;secp224k1&quot;: false,
+                  &quot;secp256k1&quot;: false,
+                  &quot;brainpoolP256r1&quot;: false,
+                  &quot;brainpoolP384r1&quot;: false,
+                  &quot;brainpool512r1&quot;: false,
+                  &quot;X448&quot;: false
+                },
+                &quot;signatureHashAlgorithmsList&quot;: [
+                  &quot;RSA_PKCS1_SHA256&quot;
+                ]
+              }
+            },
+            &quot;client&quot;: {
+              &quot;action&quot;: [
+                {
+                  &quot;USER&quot;: &quot;Spirent&quot;,
+                  &quot;PASSWD&quot;: &quot;Spirent&quot;,
+                  &quot;COMMANDS&quot;: [
+                    &quot;CHECK RETR&quot;
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          &quot;percentage&quot;: 5.0,
+          &quot;name&quot;: &quot;CIFS/SMB&quot;,
+          &quot;type&quot;: &quot;protocol&quot;,
+          &quot;config&quot;: {
+            &quot;port&quot;: 445,
+            &quot;domainName&quot;: &quot;spirent&quot;,
+            &quot;bytes&quot;: 600000,
+            &quot;client&quot;: {
+              &quot;action&quot;: [
+                {
+                  &quot;AUTHDOMAIN&quot;: &quot;spirent&quot;,
+                  &quot;AUTH_TYPE&quot;: &quot;NTLM&quot;,
+                  &quot;CIFS_SUB_CMD&quot;: [
+                    {
+                      &quot;FILENAME&quot;: &quot;testfile&quot;,
+                      &quot;OPEN&quot;: null
+                    },
+                    {
+                      &quot;FILENAME&quot;: &quot;testfile&quot;,
+                      &quot;READ&quot;: null
+                    },
+                    {
+                      &quot;CLOSE&quot;: null,
+                      &quot;FILENAME&quot;: &quot;testfile&quot;
+                    }
+                  ],
+                  &quot;CONNECTION_TREE&quot;: &quot;/sharefile&quot;,
+                  &quot;PASSWD&quot;: &quot; passwd1&quot;,
+                  &quot;USER&quot;: &quot;user1&quot;
+                }
+              ]
+            }
+          }
+        },
+        {
+          &quot;percentage&quot;: 5.0,
+          &quot;name&quot;: &quot;IMAP4&quot;,
+          &quot;type&quot;: &quot;protocol&quot;,
+          &quot;config&quot;: {
+            &quot;port&quot;: 143,
+            &quot;min&quot;: 65000,
+            &quot;max&quot;: 65001,
+            &quot;mailboxes&quot;: [
+              {
+                &quot;id&quot;: 0,
+                &quot;unavailable&quot;: 0,
+                &quot;user&quot;: &quot;yansong&quot;,
+                &quot;folders&quot;: [
+                  {
+                    &quot;folderPath&quot;: &quot;\\&quot;inbox\\&quot;&quot;,
+                    &quot;id&quot;: 0,
+                    &quot;maximumMessageLength&quot;: 100,
+                    &quot;maximumNumberOfMessages&quot;: 100,
+                    &quot;messageFile&quot;: 0,
+                    &quot;minimumMessageLength&quot;: 10,
+                    &quot;minimumNumberOfMessages&quot;: 10,
+                    &quot;path&quot;: &quot;inbox&quot;
+                  }
+                ]
+              },
+              {
+                &quot;id&quot;: 1,
+                &quot;unavailable&quot;: 0,
+                &quot;user&quot;: &quot;Spirent&quot;,
+                &quot;folders&quot;: [
+                  {
+                    &quot;folderPath&quot;: &quot;\\&quot;inbox\\&quot;&quot;,
+                    &quot;id&quot;: 0,
+                    &quot;maximumMessageLength&quot;: 65001,
+                    &quot;maximumNumberOfMessages&quot;: 20,
+                    &quot;messageFile&quot;: 0,
+                    &quot;minimumMessageLength&quot;: 65000,
+                    &quot;minimumNumberOfMessages&quot;: 1,
+                    &quot;path&quot;: &quot;inbox&quot;
+                  }
+                ]
+              }
+            ],
+            &quot;supplemental&quot;: {
+              &quot;sslTls&quot;: {
+                &quot;enabled&quot;: false,
+                &quot;sslv20&quot;: false,
+                &quot;sslv30&quot;: false,
+                &quot;tlsv10&quot;: false,
+                &quot;tlsv12&quot;: true,
+                &quot;tlsv13&quot;: false,
+                &quot;certificate&quot;: &quot;server_2048&quot;,
+                &quot;ciphers&quot;: [
+                  &quot;AES128-GCM-SHA256&quot;
+                ],
+                &quot;bytes&quot;: 16383,
+                &quot;payloadEncryptionOffload&quot;: false,
+                &quot;extendedMasterSecret&quot;: false,
+                &quot;supportedGroups&quot;: {
+                  &quot;x25519&quot;: true,
+                  &quot;secp256r1&quot;: false,
+                  &quot;secp521r1&quot;: false,
+                  &quot;secp384r1&quot;: false,
+                  &quot;sect163k1&quot;: false,
+                  &quot;sect163r1&quot;: false,
+                  &quot;sect163r2&quot;: false,
+                  &quot;sect193r1&quot;: false,
+                  &quot;sect193r2&quot;: false,
+                  &quot;sect233k1&quot;: false,
+                  &quot;sect233r1&quot;: false,
+                  &quot;sect239k1&quot;: false,
+                  &quot;sect283k1&quot;: false,
+                  &quot;sect283r1&quot;: false,
+                  &quot;sect409k1&quot;: false,
+                  &quot;sect409r1&quot;: false,
+                  &quot;sect571k1&quot;: false,
+                  &quot;sect571r1&quot;: false,
+                  &quot;secp160k1&quot;: false,
+                  &quot;secp160r1&quot;: false,
+                  &quot;secp160r2&quot;: false,
+                  &quot;secp192k1&quot;: false,
+                  &quot;secp192r1&quot;: false,
+                  &quot;secp224k1&quot;: false,
+                  &quot;secp256k1&quot;: false,
+                  &quot;brainpoolP256r1&quot;: false,
+                  &quot;brainpoolP384r1&quot;: false,
+                  &quot;brainpool512r1&quot;: false,
+                  &quot;X448&quot;: false
+                },
+                &quot;signatureHashAlgorithmsList&quot;: [
+                  &quot;RSA_PKCS1_SHA256&quot;
+                ]
+              }
+            },
+            &quot;client&quot;: {
+              &quot;action&quot;: [
+                {
+                  &quot;USER&quot;: &quot;Spirent&quot;,
+                  &quot;PASSWD&quot;: &quot;Spirent&quot;,
+                  &quot;COMMANDS&quot;: [
+                    &quot;SELECT = inbox&quot;,
+                    &quot;FETCH_BODY=\\&quot;1,3,6:10,14:*\\&quot;&quot;,
+                    &quot;LOGOUT&quot;
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          &quot;percentage&quot;: 5.0,
+          &quot;name&quot;: &quot;RTSP&quot;,
+          &quot;type&quot;: &quot;protocol&quot;,
+          &quot;config&quot;: {
+            &quot;port&quot;: 554,
+            &quot;duration&quot;: 1,
+            &quot;transport&quot;: &quot;UDP&quot;,
+            &quot;client&quot;: {
+              &quot;action&quot;: [
+                {
+                  &quot;fileName&quot;: &quot;1sec.mov.caw&quot;
+                }
+              ]
+            }
+          }
+        },
+        {
+          &quot;percentage&quot;: 5.0,
+          &quot;name&quot;: &quot;SIP&quot;,
+          &quot;type&quot;: &quot;protocol&quot;,
+          &quot;config&quot;: {
+            &quot;port&quot;: 5060,
+            &quot;length&quot;: 1000,
+            &quot;client&quot;: {
+              &quot;action&quot;: [
+                {
+                  &quot;PHONEBOOK&quot;: &quot;SIPNG_TCP_G711A_BW&quot;
+                }
+              ]
+            }
+          }
+        },
+        {
+          &quot;percentage&quot;: 5.0,
+          &quot;name&quot;: &quot;uTorrent&quot;,
+          &quot;type&quot;: &quot;app&quot;,
+          &quot;config&quot;: {
+            &quot;uTorrent Tracker Server Port (UDP)&quot;: &quot;21472&quot;,
+            &quot;Download File Server Port (TCP)&quot;: &quot;21473&quot;,
+            &quot;File Share Size&quot;: &quot;8 MB&quot;
+          }
+        },
+        {
+          &quot;percentage&quot;: 5.0,
+          &quot;name&quot;: &quot;Exchange&quot;,
+          &quot;type&quot;: &quot;app&quot;,
+          &quot;config&quot;: {
+            &quot;EXCHANGE Server Port (TCP)&quot;: &quot;5003&quot;
+          }
+        }
+      ],
+      &quot;initialType&quot;: &quot;Custom&quot;,
+      &quot;type&quot;: &quot;emix&quot;
+    },
+    &quot;securityMix&quot;: {
+      &quot;volume&quot;: 1,
+      &quot;profiles&quot;: [
+        
+      ],
+      &quot;specialEligibleTests&quot;: null
+    },
+    &quot;virtualRouters&quot;: {
+      &quot;client&quot;: [
+        
+      ],
+      &quot;server&quot;: [
+        
+      ]
+    },
+    &quot;trafficPattern&quot;: &quot;Pair&quot;,
+    &quot;loadSpecification&quot;: {
+      &quot;duration&quot;: 330,
+      &quot;startup&quot;: 20,
+      &quot;rampup&quot;: 60,
+      &quot;rampdown&quot;: 60,
+      &quot;shutdown&quot;: 70,
+      &quot;bandwidth&quot;: 1000,
+      &quot;type&quot;: &quot;Bandwidth&quot;,
+      &quot;constraints&quot;: {
+        &quot;enabled&quot;: false
+      }
+    }
+  },
+  &quot;updatedBy&quot;: &quot;ashokkumar.p@spirent.com&quot;,
+  &quot;updatedAt&quot;: &quot;2024-08-28T13:30:23.307Z&quot;,
+  &quot;createdAt&quot;: &quot;2024-07-15T09:49:07.980Z&quot;
+}{&quot;id&quot;: &quot;f4edb5ac7fb13590ad39f3e3ebb68617&quot;, &quot;name&quot;: &quot;CR1_TrafficMix_Test&quot;, &quot;lastRunBy&quot;: {&quot;email&quot;: &quot;ashokkumar.p@spirent.com&quot;, &quot;firstName&quot;: &quot;N/A&quot;, &quot;lastName&quot;: &quot;N/A&quot;}, &quot;projectId&quot;: null, &quot;description&quot;: &quot;&quot;, &quot;author&quot;: &quot;ashokkumar.p@spirent.com&quot;, &quot;config&quot;: {&quot;runtimeOptions&quot;: {&quot;jumboFrames&quot;: false, &quot;useRealMac&quot;: true, &quot;delayedReport&quot;: false, &quot;statisticsSamplingInterval&quot;: false, &quot;customSamplingInterval&quot;: 4, &quot;statisticsLevel&quot;: &quot;Full&quot;, &quot;contentFiles&quot;: [], &quot;enableAppendScript&quot;: false, &quot;enablePrependScript&quot;: false, &quot;prependScripts&quot;: [], &quot;appendScripts&quot;: [], &quot;maintainTarget&quot;: true}, &quot;nat&quot;: {&quot;enabled&quot;: false}, &quot;queue&quot;: {&quot;id&quot;: &quot;CR1&quot;, &quot;name&quot;: &quot;CR1&quot;}, &quot;debug&quot;: {&quot;enabled&quot;: true, &quot;client&quot;: {&quot;enabled&quot;: false, &quot;packetTrace&quot;: 5000000}, &quot;server&quot;: {&quot;enabled&quot;: false, &quot;packetTrace&quot;: 5000000}, &quot;logLevel&quot;: 3}, &quot;subnets&quot;: {&quot;client&quot;: [{&quot;routing&quot;: [], &quot;vlanMode&quot;: &quot;Default&quot;, &quot;vlans&quot;: [], &quot;ipQosValue&quot;: &quot;00&quot;, &quot;addressing&quot;: {&quot;type&quot;: &quot;custom&quot;, &quot;address&quot;: &quot;172.29.1.10&quot;, &quot;netmask&quot;: 24, &quot;count&quot;: 50, &quot;forceIpAllocation&quot;: false}, &quot;defaultGateway&quot;: {&quot;enabled&quot;: true, &quot;address&quot;: &quot;172.29.1.1&quot;}, &quot;ipSec&quot;: {&quot;enabled&quot;: false}, &quot;vxLanTunnel&quot;: {&quot;enabled&quot;: false}, &quot;ipFrag&quot;: {&quot;enabled&quot;: false}, &quot;randomize&quot;: false, &quot;mac&quot;: {&quot;enabled&quot;: false}, &quot;type&quot;: &quot;ipv4&quot;, &quot;side&quot;: &quot;client&quot;, &quot;ppp&quot;: {&quot;enabled&quot;: false}, &quot;realism&quot;: {&quot;enabled&quot;: false}, &quot;id&quot;: &quot;106efaa7801f27832e6a1c98ece60642&quot;, &quot;name&quot;: &quot;OPT1-Client&quot;, &quot;description&quot;: &quot;&quot;}], &quot;server&quot;: [{&quot;routing&quot;: [], &quot;vlanMode&quot;: &quot;Default&quot;, &quot;vlans&quot;: [], &quot;ipQosValue&quot;: &quot;00&quot;, &quot;addressing&quot;: {&quot;type&quot;: &quot;custom&quot;, &quot;address&quot;: &quot;172.29.2.10&quot;, &quot;netmask&quot;: 24, &quot;count&quot;: 50, &quot;forceIpAllocation&quot;: false}, &quot;defaultGateway&quot;: {&quot;enabled&quot;: true, &quot;address&quot;: &quot;172.29.2.1&quot;}, &quot;ipSec&quot;: {&quot;enabled&quot;: false}, &quot;vxLanTunnel&quot;: {&quot;enabled&quot;: false}, &quot;ipFrag&quot;: {&quot;enabled&quot;: false}, &quot;randomize&quot;: false, &quot;mac&quot;: {&quot;enabled&quot;: false}, &quot;type&quot;: &quot;ipv4&quot;, &quot;side&quot;: &quot;server&quot;, &quot;ppp&quot;: {&quot;enabled&quot;: false}, &quot;realism&quot;: {&quot;enabled&quot;: false}, &quot;id&quot;: &quot;106efaa7801f27832e6a1c98ece5fcc5&quot;, &quot;name&quot;: &quot;WAN-Server&quot;, &quot;description&quot;: &quot;&quot;}]}, &quot;slots&quot;: [{&quot;client&quot;: {&quot;endpoint&quot;: &quot;interfacec7649126cee0e3b62760d4cca95330ac1/1&quot;, &quot;subnet&quot;: &quot;OPT1-Client&quot;}, &quot;server&quot;: {&quot;endpoint&quot;: &quot;interfacec7649126cee0e3b62760d4cca95330ac1/2&quot;, &quot;subnet&quot;: &quot;WAN-Server&quot;}, &quot;protocols&quot;: [&quot;HTTP 1.0&quot;, &quot;HTTPS 1.0&quot;, &quot;HTTP 1.1&quot;, &quot;HTTPS 1.1&quot;, &quot;FTP&quot;, &quot;Telnet&quot;, &quot;SMTP&quot;, &quot;POP3&quot;, &quot;CIFS/SMB&quot;, &quot;IMAP4&quot;, &quot;RTSP&quot;, &quot;SIP&quot;, &quot;uTorrent&quot;, &quot;Exchange&quot;]}], &quot;criteria&quot;: {&quot;enabled&quot;: true, &quot;failureBandwidth&quot;: 3, &quot;failureTransactions&quot;: 3}, &quot;networks&quot;: {&quot;client&quot;: {&quot;ipV4SegmentSize&quot;: 1460, &quot;ipV6SegmentSize&quot;: 1440, &quot;initialCongestionWindow&quot;: 10, &quot;retries&quot;: 2, &quot;inactivityTimer&quot;: 70000, &quot;receiveWindow&quot;: 65538, &quot;fragmentReassemblyTimer&quot;: 30000, &quot;portRangeLowerBound&quot;: 1024, &quot;portRangeUpperBound&quot;: 65535, &quot;delayedAcks&quot;: {&quot;enabled&quot;: true, &quot;timeout&quot;: 200, &quot;bytes&quot;: 2880}, &quot;portRandomization&quot;: false, &quot;gratuitousArp&quot;: true, &quot;congestionControl&quot;: true, &quot;sackOption&quot;: false, &quot;tcpVegas&quot;: false, &quot;closeWithFin&quot;: false, &quot;tcpTimeout&quot;: 2000, &quot;tcpTimeoutOverride&quot;: false, &quot;name&quot;: &quot;Client Network&quot;, &quot;description&quot;: &quot;&quot;}, &quot;server&quot;: {&quot;ipV4SegmentSize&quot;: 1460, &quot;ipV6SegmentSize&quot;: 1440, &quot;initialCongestionWindow&quot;: 10, &quot;retries&quot;: 2, &quot;inactivityTimer&quot;: 70000, &quot;receiveWindow&quot;: 65538, &quot;delayedAcks&quot;: {&quot;enabled&quot;: true, &quot;timeout&quot;: 200, &quot;bytes&quot;: 2880}, &quot;gratuitousArp&quot;: true, &quot;congestionControl&quot;: true, &quot;sackOption&quot;: false, &quot;tcpVegas&quot;: false, &quot;tcpTimeout&quot;: 2000, &quot;tcpTimeoutOverride&quot;: false, &quot;name&quot;: &quot;Server Network&quot;, &quot;description&quot;: &quot;&quot;}}, &quot;interfaces&quot;: {&quot;client&quot;: [{&quot;portSystemId&quot;: &quot;10.62.224.219/1/1&quot;, &quot;subnetIds&quot;: [&quot;106efaa7801f27832e6a1c98ece60642&quot;]}], &quot;server&quot;: [{&quot;portSystemId&quot;: &quot;10.62.224.219/1/2&quot;, &quot;subnetIds&quot;: [&quot;106efaa7801f27832e6a1c98ece5fcc5&quot;]}]}, &quot;trafficMix&quot;: {&quot;mixer&quot;: [{&quot;percentage&quot;: 9.0, &quot;name&quot;: &quot;HTTP 1.0&quot;, &quot;type&quot;: &quot;protocol&quot;, &quot;config&quot;: {&quot;client&quot;: {&quot;destPort&quot;: 80, &quot;destPortEnabled&quot;: false, &quot;method&quot;: &quot;GET&quot;, &quot;agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64)&quot;, &quot;connections&quot;: 4, &quot;connection&quot;: {&quot;type&quot;: &quot;keepAlive&quot;}, &quot;useCookies&quot;: false, &quot;ackAfterTransactionDone&quot;: false, &quot;followRedirects&quot;: false, &quot;keepAlive&quot;: {&quot;enabled&quot;: true, &quot;count&quot;: 2, &quot;delayType&quot;: &quot;perUser&quot;, &quot;delayTime&quot;: 0, &quot;delayTimeUnit&quot;: &quot;sec&quot;}, &quot;separateConnections&quot;: {&quot;enabled&quot;: false}, &quot;action&quot;: [{&quot;LEVEL&quot;: &quot;1&quot;, &quot;METHOD&quot;: &quot;GET&quot;, &quot;CONNS_ACTIONS&quot;: &quot;2&quot;, &quot;THINK&quot;: 0}]}, &quot;server&quot;: {&quot;port&quot;: 80, &quot;responseBodyType&quot;: {&quot;type&quot;: &quot;fixed&quot;, &quot;config&quot;: {&quot;type&quot;: &quot;default&quot;, &quot;bytes&quot;: 100000, &quot;latency&quot;: 0}}, &quot;type&quot;: &quot;Microsoft-IIS/8.5&quot;, &quot;connectionTermination&quot;: &quot;RST&quot;, &quot;connectionTimeout&quot;: 30000, &quot;tos&quot;: &quot;&quot;}, &quot;supplemental&quot;: {&quot;proxy&quot;: {&quot;enabled&quot;: false}, &quot;authentication&quot;: {&quot;enabled&quot;: false}}}}, {&quot;percentage&quot;: 10.0, &quot;name&quot;: &quot;HTTPS 1.0&quot;, &quot;type&quot;: &quot;protocol&quot;, &quot;config&quot;: {&quot;client&quot;: {&quot;destPort&quot;: 443, &quot;destPortEnabled&quot;: false, &quot;method&quot;: &quot;GET&quot;, &quot;agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64)&quot;, &quot;connections&quot;: 4, &quot;connection&quot;: {&quot;type&quot;: &quot;keepAlive&quot;}, &quot;useCookies&quot;: false, &quot;followRedirects&quot;: false, &quot;keepAlive&quot;: {&quot;enabled&quot;: true, &quot;count&quot;: 2, &quot;delayType&quot;: &quot;perUser&quot;, &quot;delayTime&quot;: 0, &quot;delayTimeUnit&quot;: &quot;sec&quot;}, &quot;separateConnections&quot;: {&quot;enabled&quot;: false}, &quot;ackAfterTransactionDone&quot;: false, &quot;action&quot;: [{&quot;LEVEL&quot;: &quot;1&quot;, &quot;METHOD&quot;: &quot;GET&quot;, &quot;CONNS_ACTIONS&quot;: &quot;2&quot;, &quot;THINK&quot;: 0}]}, &quot;server&quot;: {&quot;port&quot;: 443, &quot;responseBodyType&quot;: {&quot;type&quot;: &quot;fixed&quot;, &quot;config&quot;: {&quot;type&quot;: &quot;default&quot;, &quot;bytes&quot;: 200000, &quot;latency&quot;: 0}}, &quot;type&quot;: &quot;Microsoft-IIS/8.5&quot;, &quot;connectionTermination&quot;: &quot;RST&quot;, &quot;connectionTimeout&quot;: 30000, &quot;tos&quot;: &quot;&quot;}, &quot;supplemental&quot;: {&quot;sslTls&quot;: {&quot;enabled&quot;: true, &quot;sslv20&quot;: false, &quot;sslv30&quot;: false, &quot;tlsv10&quot;: false, &quot;tlsv12&quot;: true, &quot;tlsv13&quot;: false, &quot;certificate&quot;: &quot;server_2048&quot;, &quot;ciphers&quot;: [&quot;AES128-GCM-SHA256&quot;], &quot;resumeSession&quot;: {&quot;enabled&quot;: false}, &quot;bytes&quot;: 16383, &quot;payloadEncryptionOffload&quot;: false, &quot;extendedMasterSecret&quot;: false, &quot;supportedGroups&quot;: {&quot;x25519&quot;: true, &quot;secp256r1&quot;: false, &quot;secp521r1&quot;: false, &quot;secp384r1&quot;: false, &quot;sect163k1&quot;: false, &quot;sect163r1&quot;: false, &quot;sect163r2&quot;: false, &quot;sect193r1&quot;: false, &quot;sect193r2&quot;: false, &quot;sect233k1&quot;: false, &quot;sect233r1&quot;: false, &quot;sect239k1&quot;: false, &quot;sect283k1&quot;: false, &quot;sect283r1&quot;: false, &quot;sect409k1&quot;: false, &quot;sect409r1&quot;: false, &quot;sect571k1&quot;: false, &quot;sect571r1&quot;: false, &quot;secp160k1&quot;: false, &quot;secp160r1&quot;: false, &quot;secp160r2&quot;: false, &quot;secp192k1&quot;: false, &quot;secp192r1&quot;: false, &quot;secp224k1&quot;: false, &quot;secp256k1&quot;: false, &quot;brainpoolP256r1&quot;: false, &quot;brainpoolP384r1&quot;: false, &quot;brainpool512r1&quot;: false, &quot;X448&quot;: false}, &quot;signatureHashAlgorithmsList&quot;: [&quot;RSA_PKCS1_SHA256&quot;]}, &quot;proxy&quot;: {&quot;enabled&quot;: false}, &quot;authentication&quot;: {&quot;enabled&quot;: false}}}}, {&quot;percentage&quot;: 10.0, &quot;name&quot;: &quot;HTTP 1.1&quot;, &quot;type&quot;: &quot;protocol&quot;, &quot;config&quot;: {&quot;client&quot;: {&quot;destPort&quot;: 80, &quot;destPortEnabled&quot;: false, &quot;method&quot;: &quot;GET&quot;, &quot;agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64)&quot;, &quot;connections&quot;: 4, &quot;connection&quot;: {&quot;type&quot;: &quot;keepAlive&quot;}, &quot;useCookies&quot;: false, &quot;ackAfterTransactionDone&quot;: false, &quot;followRedirects&quot;: false, &quot;keepAlive&quot;: {&quot;enabled&quot;: true, &quot;count&quot;: 2, &quot;delayType&quot;: &quot;perUser&quot;, &quot;delayTime&quot;: 0, &quot;delayTimeUnit&quot;: &quot;sec&quot;}, &quot;separateConnections&quot;: {&quot;enabled&quot;: false}, &quot;action&quot;: [{&quot;LEVEL&quot;: &quot;1&quot;, &quot;METHOD&quot;: &quot;GET&quot;, &quot;CONNS_ACTIONS&quot;: &quot;2&quot;, &quot;THINK&quot;: 0}]}, &quot;server&quot;: {&quot;port&quot;: 80, &quot;responseBodyType&quot;: {&quot;type&quot;: &quot;fixed&quot;, &quot;config&quot;: {&quot;type&quot;: &quot;default&quot;, &quot;bytes&quot;: 100000, &quot;latency&quot;: 0}}, &quot;type&quot;: &quot;Microsoft-IIS/8.5&quot;, &quot;connectionTermination&quot;: &quot;RST&quot;, &quot;connectionTimeout&quot;: 30000, &quot;tos&quot;: &quot;&quot;}, &quot;supplemental&quot;: {&quot;proxy&quot;: {&quot;enabled&quot;: false}, &quot;authentication&quot;: {&quot;enabled&quot;: false}}}}, {&quot;percentage&quot;: 10.0, &quot;name&quot;: &quot;HTTPS 1.1&quot;, &quot;type&quot;: &quot;protocol&quot;, &quot;config&quot;: {&quot;client&quot;: {&quot;destPort&quot;: 443, &quot;destPortEnabled&quot;: false, &quot;method&quot;: &quot;GET&quot;, &quot;agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64)&quot;, &quot;connections&quot;: 4, &quot;connection&quot;: {&quot;type&quot;: &quot;keepAlive&quot;}, &quot;useCookies&quot;: false, &quot;followRedirects&quot;: false, &quot;keepAlive&quot;: {&quot;enabled&quot;: true, &quot;count&quot;: 2, &quot;delayType&quot;: &quot;perUser&quot;, &quot;delayTime&quot;: 0, &quot;delayTimeUnit&quot;: &quot;sec&quot;}, &quot;separateConnections&quot;: {&quot;enabled&quot;: false}, &quot;ackAfterTransactionDone&quot;: false, &quot;action&quot;: [{&quot;LEVEL&quot;: &quot;1&quot;, &quot;METHOD&quot;: &quot;GET&quot;, &quot;CONNS_ACTIONS&quot;: &quot;2&quot;, &quot;THINK&quot;: 0}]}, &quot;server&quot;: {&quot;port&quot;: 443, &quot;responseBodyType&quot;: {&quot;type&quot;: &quot;fixed&quot;, &quot;config&quot;: {&quot;type&quot;: &quot;default&quot;, &quot;bytes&quot;: 200000, &quot;latency&quot;: 0}}, &quot;type&quot;: &quot;Microsoft-IIS/8.5&quot;, &quot;connectionTermination&quot;: &quot;FIN&quot;, &quot;connectionTimeout&quot;: 30000, &quot;tos&quot;: &quot;&quot;}, &quot;supplemental&quot;: {&quot;sslTls&quot;: {&quot;enabled&quot;: true, &quot;sslv20&quot;: false, &quot;sslv30&quot;: false, &quot;tlsv10&quot;: false, &quot;tlsv12&quot;: true, &quot;tlsv13&quot;: false, &quot;certificate&quot;: &quot;server_2048&quot;, &quot;ciphers&quot;: [&quot;AES128-GCM-SHA256&quot;], &quot;resumeSession&quot;: {&quot;enabled&quot;: false}, &quot;bytes&quot;: 16383, &quot;payloadEncryptionOffload&quot;: false, &quot;extendedMasterSecret&quot;: false, &quot;supportedGroups&quot;: {&quot;x25519&quot;: true, &quot;secp256r1&quot;: false, &quot;secp521r1&quot;: false, &quot;secp384r1&quot;: false, &quot;sect163k1&quot;: false, &quot;sect163r1&quot;: false, &quot;sect163r2&quot;: false, &quot;sect193r1&quot;: false, &quot;sect193r2&quot;: false, &quot;sect233k1&quot;: false, &quot;sect233r1&quot;: false, &quot;sect239k1&quot;: false, &quot;sect283k1&quot;: false, &quot;sect283r1&quot;: false, &quot;sect409k1&quot;: false, &quot;sect409r1&quot;: false, &quot;sect571k1&quot;: false, &quot;sect571r1&quot;: false, &quot;secp160k1&quot;: false, &quot;secp160r1&quot;: false, &quot;secp160r2&quot;: false, &quot;secp192k1&quot;: false, &quot;secp192r1&quot;: false, &quot;secp224k1&quot;: false, &quot;secp256k1&quot;: false, &quot;brainpoolP256r1&quot;: false, &quot;brainpoolP384r1&quot;: false, &quot;brainpool512r1&quot;: false, &quot;X448&quot;: false}, &quot;signatureHashAlgorithmsList&quot;: [&quot;RSA_PKCS1_SHA256&quot;]}, &quot;proxy&quot;: {&quot;enabled&quot;: false}, &quot;authentication&quot;: {&quot;enabled&quot;: false}}}}, {&quot;percentage&quot;: 10.0, &quot;name&quot;: &quot;FTP&quot;, &quot;type&quot;: &quot;protocol&quot;, &quot;config&quot;: {&quot;port&quot;: 21, &quot;bytes&quot;: 500000, &quot;client&quot;: {&quot;action&quot;: [{&quot;URL&quot;: &quot;500000B&quot;}]}}}, {&quot;percentage&quot;: 10.0, &quot;name&quot;: &quot;Telnet&quot;, &quot;type&quot;: &quot;protocol&quot;, &quot;config&quot;: {&quot;port&quot;: 23, &quot;client&quot;: {&quot;action&quot;: [{&quot;PROFILE&quot;: &quot;STE&quot;}]}}}, {&quot;percentage&quot;: 5.0, &quot;name&quot;: &quot;SMTP&quot;, &quot;type&quot;: &quot;protocol&quot;, &quot;config&quot;: {&quot;port&quot;: 25, &quot;bytes&quot;: 500000, &quot;supplemental&quot;: {&quot;sslTls&quot;: {&quot;enabled&quot;: false, &quot;retryCount&quot;: 0, &quot;retryInterval&quot;: 1000, &quot;sslv20&quot;: false, &quot;sslv30&quot;: false, &quot;tlsv10&quot;: false, &quot;tlsv12&quot;: true, &quot;tlsv13&quot;: false, &quot;certificate&quot;: &quot;server_2048&quot;, &quot;ciphers&quot;: [&quot;AES128-GCM-SHA256&quot;], &quot;bytes&quot;: 16383, &quot;payloadEncryptionOffload&quot;: false, &quot;extendedMasterSecret&quot;: false, &quot;supportedGroups&quot;: {&quot;x25519&quot;: true, &quot;secp256r1&quot;: false, &quot;secp521r1&quot;: false, &quot;secp384r1&quot;: false, &quot;sect163k1&quot;: false, &quot;sect163r1&quot;: false, &quot;sect163r2&quot;: false, &quot;sect193r1&quot;: false, &quot;sect193r2&quot;: false, &quot;sect233k1&quot;: false, &quot;sect233r1&quot;: false, &quot;sect239k1&quot;: false, &quot;sect283k1&quot;: false, &quot;sect283r1&quot;: false, &quot;sect409k1&quot;: false, &quot;sect409r1&quot;: false, &quot;sect571k1&quot;: false, &quot;sect571r1&quot;: false, &quot;secp160k1&quot;: false, &quot;secp160r1&quot;: false, &quot;secp160r2&quot;: false, &quot;secp192k1&quot;: false, &quot;secp192r1&quot;: false, &quot;secp224k1&quot;: false, &quot;secp256k1&quot;: false, &quot;brainpoolP256r1&quot;: false, &quot;brainpoolP384r1&quot;: false, &quot;brainpool512r1&quot;: false, &quot;X448&quot;: false}, &quot;signatureHashAlgorithmsList&quot;: [&quot;RSA_PKCS1_SHA256&quot;]}}, &quot;client&quot;: {&quot;action&quot;: [{&quot;DATA&quot;: &quot;FIXED,500000&quot;, &quot;FROM&quot;: &quot;custom.user@spirent.com&quot;, &quot;TO&quot;: &quot;spirent.user@spirent.com&quot;}]}}}, {&quot;percentage&quot;: 5.0, &quot;name&quot;: &quot;POP3&quot;, &quot;type&quot;: &quot;protocol&quot;, &quot;config&quot;: {&quot;port&quot;: 110, &quot;mailbox&quot;: {&quot;type&quot;: &quot;default&quot;, &quot;size&quot;: &quot;100KB&quot;}, &quot;supplemental&quot;: {&quot;sslTls&quot;: {&quot;enabled&quot;: false, &quot;sslv20&quot;: false, &quot;sslv30&quot;: false, &quot;tlsv10&quot;: false, &quot;tlsv12&quot;: true, &quot;tlsv13&quot;: false, &quot;certificate&quot;: &quot;server_2048&quot;, &quot;ciphers&quot;: [&quot;AES128-GCM-SHA256&quot;], &quot;bytes&quot;: 16383, &quot;payloadEncryptionOffload&quot;: false, &quot;extendedMasterSecret&quot;: false, &quot;supportedGroups&quot;: {&quot;x25519&quot;: true, &quot;secp256r1&quot;: false, &quot;secp521r1&quot;: false, &quot;secp384r1&quot;: false, &quot;sect163k1&quot;: false, &quot;sect163r1&quot;: false, &quot;sect163r2&quot;: false, &quot;sect193r1&quot;: false, &quot;sect193r2&quot;: false, &quot;sect233k1&quot;: false, &quot;sect233r1&quot;: false, &quot;sect239k1&quot;: false, &quot;sect283k1&quot;: false, &quot;sect283r1&quot;: false, &quot;sect409k1&quot;: false, &quot;sect409r1&quot;: false, &quot;sect571k1&quot;: false, &quot;sect571r1&quot;: false, &quot;secp160k1&quot;: false, &quot;secp160r1&quot;: false, &quot;secp160r2&quot;: false, &quot;secp192k1&quot;: false, &quot;secp192r1&quot;: false, &quot;secp224k1&quot;: false, &quot;secp256k1&quot;: false, &quot;brainpoolP256r1&quot;: false, &quot;brainpoolP384r1&quot;: false, &quot;brainpool512r1&quot;: false, &quot;X448&quot;: false}, &quot;signatureHashAlgorithmsList&quot;: [&quot;RSA_PKCS1_SHA256&quot;]}}, &quot;client&quot;: {&quot;action&quot;: [{&quot;USER&quot;: &quot;Spirent&quot;, &quot;PASSWD&quot;: &quot;Spirent&quot;, &quot;COMMANDS&quot;: [&quot;CHECK RETR&quot;]}]}}}, {&quot;percentage&quot;: 5.0, &quot;name&quot;: &quot;CIFS/SMB&quot;, &quot;type&quot;: &quot;protocol&quot;, &quot;config&quot;: {&quot;port&quot;: 445, &quot;domainName&quot;: &quot;spirent&quot;, &quot;bytes&quot;: 600000, &quot;client&quot;: {&quot;action&quot;: [{&quot;AUTHDOMAIN&quot;: &quot;spirent&quot;, &quot;AUTH_TYPE&quot;: &quot;NTLM&quot;, &quot;CIFS_SUB_CMD&quot;: [{&quot;FILENAME&quot;: &quot;testfile&quot;, &quot;OPEN&quot;: null}, {&quot;FILENAME&quot;: &quot;testfile&quot;, &quot;READ&quot;: null}, {&quot;CLOSE&quot;: null, &quot;FILENAME&quot;: &quot;testfile&quot;}], &quot;CONNECTION_TREE&quot;: &quot;/sharefile&quot;, &quot;PASSWD&quot;: &quot; passwd1&quot;, &quot;USER&quot;: &quot;user1&quot;}]}}}, {&quot;percentage&quot;: 5.0, &quot;name&quot;: &quot;IMAP4&quot;, &quot;type&quot;: &quot;protocol&quot;, &quot;config&quot;: {&quot;port&quot;: 143, &quot;min&quot;: 65000, &quot;max&quot;: 65001, &quot;mailboxes&quot;: [{&quot;id&quot;: 0, &quot;unavailable&quot;: 0, &quot;user&quot;: &quot;yansong&quot;, &quot;folders&quot;: [{&quot;folderPath&quot;: &quot;\\\\&quot;inbox\\\\&quot;&quot;, &quot;id&quot;: 0, &quot;maximumMessageLength&quot;: 100, &quot;maximumNumberOfMessages&quot;: 100, &quot;messageFile&quot;: 0, &quot;minimumMessageLength&quot;: 10, &quot;minimumNumberOfMessages&quot;: 10, &quot;path&quot;: &quot;inbox&quot;}]}, {&quot;id&quot;: 1, &quot;unavailable&quot;: 0, &quot;user&quot;: &quot;Spirent&quot;, &quot;folders&quot;: [{&quot;folderPath&quot;: &quot;\\\\&quot;inbox\\\\&quot;&quot;, &quot;id&quot;: 0, &quot;maximumMessageLength&quot;: 65001, &quot;maximumNumberOfMessages&quot;: 20, &quot;messageFile&quot;: 0, &quot;minimumMessageLength&quot;: 65000, &quot;minimumNumberOfMessages&quot;: 1, &quot;path&quot;: &quot;inbox&quot;}]}], &quot;supplemental&quot;: {&quot;sslTls&quot;: {&quot;enabled&quot;: false, &quot;sslv20&quot;: false, &quot;sslv30&quot;: false, &quot;tlsv10&quot;: false, &quot;tlsv12&quot;: true, &quot;tlsv13&quot;: false, &quot;certificate&quot;: &quot;server_2048&quot;, &quot;ciphers&quot;: [&quot;AES128-GCM-SHA256&quot;], &quot;bytes&quot;: 16383, &quot;payloadEncryptionOffload&quot;: false, &quot;extendedMasterSecret&quot;: false, &quot;supportedGroups&quot;: {&quot;x25519&quot;: true, &quot;secp256r1&quot;: false, &quot;secp521r1&quot;: false, &quot;secp384r1&quot;: false, &quot;sect163k1&quot;: false, &quot;sect163r1&quot;: false, &quot;sect163r2&quot;: false, &quot;sect193r1&quot;: false, &quot;sect193r2&quot;: false, &quot;sect233k1&quot;: false, &quot;sect233r1&quot;: false, &quot;sect239k1&quot;: false, &quot;sect283k1&quot;: false, &quot;sect283r1&quot;: false, &quot;sect409k1&quot;: false, &quot;sect409r1&quot;: false, &quot;sect571k1&quot;: false, &quot;sect571r1&quot;: false, &quot;secp160k1&quot;: false, &quot;secp160r1&quot;: false, &quot;secp160r2&quot;: false, &quot;secp192k1&quot;: false, &quot;secp192r1&quot;: false, &quot;secp224k1&quot;: false, &quot;secp256k1&quot;: false, &quot;brainpoolP256r1&quot;: false, &quot;brainpoolP384r1&quot;: false, &quot;brainpool512r1&quot;: false, &quot;X448&quot;: false}, &quot;signatureHashAlgorithmsList&quot;: [&quot;RSA_PKCS1_SHA256&quot;]}}, &quot;client&quot;: {&quot;action&quot;: [{&quot;USER&quot;: &quot;Spirent&quot;, &quot;PASSWD&quot;: &quot;Spirent&quot;, &quot;COMMANDS&quot;: [&quot;SELECT = inbox&quot;, &quot;FETCH_BODY=\\\\&quot;1,3,6:10,14:*\\\\&quot;&quot;, &quot;LOGOUT&quot;]}]}}}, {&quot;percentage&quot;: 5.0, &quot;name&quot;: &quot;RTSP&quot;, &quot;type&quot;: &quot;protocol&quot;, &quot;config&quot;: {&quot;port&quot;: 554, &quot;duration&quot;: 1, &quot;transport&quot;: &quot;UDP&quot;, &quot;client&quot;: {&quot;action&quot;: [{&quot;fileName&quot;: &quot;1sec.mov.caw&quot;}]}}}, {&quot;percentage&quot;: 5.0, &quot;name&quot;: &quot;SIP&quot;, &quot;type&quot;: &quot;protocol&quot;, &quot;config&quot;: {&quot;port&quot;: 5060, &quot;length&quot;: 1000, &quot;client&quot;: {&quot;action&quot;: [{&quot;PHONEBOOK&quot;: &quot;SIPNG_TCP_G711A_BW&quot;}]}}}, {&quot;percentage&quot;: 5.0, &quot;name&quot;: &quot;uTorrent&quot;, &quot;type&quot;: &quot;app&quot;, &quot;config&quot;: {&quot;uTorrent Tracker Server Port (UDP)&quot;: &quot;21472&quot;, &quot;Download File Server Port (TCP)&quot;: &quot;21473&quot;, &quot;File Share Size&quot;: &quot;8 MB&quot;}}, {&quot;percentage&quot;: 5.0, &quot;name&quot;: &quot;Exchange&quot;, &quot;type&quot;: &quot;app&quot;, &quot;config&quot;: {&quot;EXCHANGE Server Port (TCP)&quot;: &quot;5003&quot;}}], &quot;initialType&quot;: &quot;Custom&quot;, &quot;type&quot;: &quot;emix&quot;}, &quot;securityMix&quot;: {&quot;volume&quot;: 1, &quot;profiles&quot;: [], &quot;specialEligibleTests&quot;: null}, &quot;virtualRouters&quot;: {&quot;client&quot;: [], &quot;server&quot;: []}, &quot;trafficPattern&quot;: &quot;Pair&quot;, &quot;loadSpecification&quot;: {&quot;duration&quot;: 330, &quot;startup&quot;: 20, &quot;rampup&quot;: 60, &quot;rampdown&quot;: 60, &quot;shutdown&quot;: 70, &quot;bandwidth&quot;: 1000, &quot;type&quot;: &quot;Bandwidth&quot;, &quot;constraints&quot;: {&quot;enabled&quot;: false}}}, &quot;updatedBy&quot;: &quot;ashokkumar.p@spirent.com&quot;, &quot;updatedAt&quot;: &quot;2024-08-29T08:04:57.091Z&quot;, &quot;createdAt&quot;: &quot;2024-07-15T09:49:07.980Z&quot;}</message>
+                        <authentication transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.AuthenticationProperties" authenticationType.inherit="false" user="ashokkumar.p@spirent.com" user.inherit="false" password.masked="true" password="8t+EnBZizaiaXYyO0nPrYQ==" password.inherit="false" acceptAllCertificates="true" acceptAllCertificates.inherit="false"/>
+                        <httpHeader inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
+                            <memberClasses>
+                                <item>com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry</item>
+                            </memberClasses>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Content-Type" header.inherit="false" value="application/json" value.inherit="false"/>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Authorization" header.inherit="false" value="Bearer [cf_token]" value.inherit="false"/>
+                        </httpHeader>
+                    </applicationProperties>
+                </item>
+                <item guid="ca9e68cb-57db-46c7-90ce-4bdee67380f1" action="eval" useFieldsInCommand="false">
+                    <command>
+                        <body>bool_n = &quot;null&quot;</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="1c2c96ae-7270-4351-93b8-f7265a47bdc0" action="eval" useFieldsInCommand="false">
+                    <command>
+                        <body>bool_t = &quot;true&quot;</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="c4bd6d96-8dcd-4a0b-9f76-ca51eda5fee6" action="eval" useFieldsInCommand="false">
+                    <command>
+                        <body>bool_f = &quot;false&quot;</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="87022908-4da7-4de7-bdbc-321508ef4e0d" action="PUT" session="t1" estimatedStepExecutionTime="4.742">
+                    <command>
+                        <body>tests/emix/[cf_test_id]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties" httpMethod="PUT" httpMethod.inherit="false" action="tests/emix/[cf_test_id]" action.inherit="false">
+                        <message inherit="false" sub="false">{
+  &quot;id&quot;: &quot;f4edb5ac7fb13590ad39f3e3ebb68617&quot;,
+  &quot;name&quot;: &quot;CR1_TrafficMix_Test&quot;,
+  &quot;lastRunBy&quot;: {
+    &quot;email&quot;: &quot;ashokkumar.p@spirent.com&quot;,
+    &quot;firstName&quot;: &quot;N/A&quot;,
+    &quot;lastName&quot;: &quot;N/A&quot;
+  },
+  &quot;projectId&quot;: null,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;author&quot;: &quot;ashokkumar.p@spirent.com&quot;,
+  &quot;config&quot;: {
+    &quot;runtimeOptions&quot;: {
+      &quot;jumboFrames&quot;: false,
+      &quot;useRealMac&quot;: true,
+      &quot;delayedReport&quot;: false,
+      &quot;statisticsSamplingInterval&quot;: false,
+      &quot;customSamplingInterval&quot;: 4,
+      &quot;statisticsLevel&quot;: &quot;Full&quot;,
+      &quot;contentFiles&quot;: [
+        
+      ],
+      &quot;enableAppendScript&quot;: false,
+      &quot;enablePrependScript&quot;: false,
+      &quot;prependScripts&quot;: [
+        
+      ],
+      &quot;appendScripts&quot;: [
+        
+      ],
+      &quot;maintainTarget&quot;: true
+    },
+    &quot;nat&quot;: {
+      &quot;enabled&quot;: false
+    },
+    &quot;queue&quot;: {
+      &quot;id&quot;: &quot;CR1&quot;,
+      &quot;name&quot;: &quot;CR1&quot;
+    },
+    &quot;debug&quot;: {
+      &quot;enabled&quot;: true,
+      &quot;client&quot;: {
+        &quot;enabled&quot;: false,
+        &quot;packetTrace&quot;: 5000000
+      },
+      &quot;server&quot;: {
+        &quot;enabled&quot;: false,
+        &quot;packetTrace&quot;: 5000000
+      },
+      &quot;logLevel&quot;: 3
+    },
+    &quot;subnets&quot;: {
+      &quot;client&quot;: [
+        {
+          &quot;routing&quot;: [
+            
+          ],
+          &quot;vlanMode&quot;: &quot;Default&quot;,
+          &quot;vlans&quot;: [
+            
+          ],
+          &quot;ipQosValue&quot;: &quot;00&quot;,
+          &quot;addressing&quot;: {
+            &quot;type&quot;: &quot;custom&quot;,
+            &quot;address&quot;: &quot;172.29.1.10&quot;,
+            &quot;netmask&quot;: 24,
+            &quot;count&quot;: 50,
+            &quot;forceIpAllocation&quot;: false
+          },
+          &quot;defaultGateway&quot;: {
+            &quot;enabled&quot;: true,
+            &quot;address&quot;: &quot;172.29.1.1&quot;
+          },
+          &quot;ipSec&quot;: {
+            &quot;enabled&quot;: false
+          },
+          &quot;vxLanTunnel&quot;: {
+            &quot;enabled&quot;: false
+          },
+          &quot;ipFrag&quot;: {
+            &quot;enabled&quot;: false
+          },
+          &quot;randomize&quot;: false,
+          &quot;mac&quot;: {
+            &quot;enabled&quot;: false
+          },
+          &quot;type&quot;: &quot;ipv4&quot;,
+          &quot;side&quot;: &quot;client&quot;,
+          &quot;ppp&quot;: {
+            &quot;enabled&quot;: false
+          },
+          &quot;realism&quot;: {
+            &quot;enabled&quot;: false
+          },
+          &quot;id&quot;: &quot;106efaa7801f27832e6a1c98ece60642&quot;,
+          &quot;name&quot;: &quot;OPT1-Client&quot;,
+          &quot;description&quot;: &quot;&quot;
+        }
+      ],
+      &quot;server&quot;: [
+        {
+          &quot;routing&quot;: [
+            
+          ],
+          &quot;vlanMode&quot;: &quot;Default&quot;,
+          &quot;vlans&quot;: [
+            
+          ],
+          &quot;ipQosValue&quot;: &quot;00&quot;,
+          &quot;addressing&quot;: {
+            &quot;type&quot;: &quot;custom&quot;,
+            &quot;address&quot;: &quot;172.29.2.10&quot;,
+            &quot;netmask&quot;: 24,
+            &quot;count&quot;: 50,
+            &quot;forceIpAllocation&quot;: false
+          },
+          &quot;defaultGateway&quot;: {
+            &quot;enabled&quot;: true,
+            &quot;address&quot;: &quot;172.29.2.1&quot;
+          },
+          &quot;ipSec&quot;: {
+            &quot;enabled&quot;: false
+          },
+          &quot;vxLanTunnel&quot;: {
+            &quot;enabled&quot;: false
+          },
+          &quot;ipFrag&quot;: {
+            &quot;enabled&quot;: false
+          },
+          &quot;randomize&quot;: false,
+          &quot;mac&quot;: {
+            &quot;enabled&quot;: false
+          },
+          &quot;type&quot;: &quot;ipv4&quot;,
+          &quot;side&quot;: &quot;server&quot;,
+          &quot;ppp&quot;: {
+            &quot;enabled&quot;: false
+          },
+          &quot;realism&quot;: {
+            &quot;enabled&quot;: false
+          },
+          &quot;id&quot;: &quot;106efaa7801f27832e6a1c98ece5fcc5&quot;,
+          &quot;name&quot;: &quot;WAN-Server&quot;,
+          &quot;description&quot;: &quot;&quot;
+        }
+      ]
+    },
+    &quot;slots&quot;: [
+      {
+        &quot;client&quot;: {
+          &quot;endpoint&quot;: &quot;interfacec7649126cee0e3b62760d4cca95330ac1/1&quot;,
+          &quot;subnet&quot;: &quot;OPT1-Client&quot;
+        },
+        &quot;server&quot;: {
+          &quot;endpoint&quot;: &quot;interfacec7649126cee0e3b62760d4cca95330ac1/2&quot;,
+          &quot;subnet&quot;: &quot;WAN-Server&quot;
+        },
+        &quot;protocols&quot;: [
+          &quot;HTTP 1.0&quot;,
+          &quot;HTTPS 1.0&quot;,
+          &quot;HTTP 1.1&quot;,
+          &quot;HTTPS 1.1&quot;,
+          &quot;FTP&quot;,
+          &quot;Telnet&quot;,
+          &quot;SMTP&quot;,
+          &quot;POP3&quot;,
+          &quot;CIFS/SMB&quot;,
+          &quot;IMAP4&quot;,
+          &quot;RTSP&quot;,
+          &quot;SIP&quot;,
+          &quot;uTorrent&quot;,
+          &quot;Exchange&quot;
+        ]
+      }
+    ],
+    &quot;criteria&quot;: {
+      &quot;enabled&quot;: true,
+      &quot;failureBandwidth&quot;: 3,
+      &quot;failureTransactions&quot;: 3
+    },
+    &quot;networks&quot;: {
+      &quot;client&quot;: {
+        &quot;ipV4SegmentSize&quot;: 1460,
+        &quot;ipV6SegmentSize&quot;: 1440,
+        &quot;initialCongestionWindow&quot;: 10,
+        &quot;retries&quot;: 2,
+        &quot;inactivityTimer&quot;: 70000,
+        &quot;receiveWindow&quot;: 65538,
+        &quot;fragmentReassemblyTimer&quot;: 30000,
+        &quot;portRangeLowerBound&quot;: 1024,
+        &quot;portRangeUpperBound&quot;: 65535,
+        &quot;delayedAcks&quot;: {
+          &quot;enabled&quot;: true,
+          &quot;timeout&quot;: 200,
+          &quot;bytes&quot;: 2880
+        },
+        &quot;portRandomization&quot;: false,
+        &quot;gratuitousArp&quot;: true,
+        &quot;congestionControl&quot;: true,
+        &quot;sackOption&quot;: false,
+        &quot;tcpVegas&quot;: false,
+        &quot;closeWithFin&quot;: false,
+        &quot;tcpTimeout&quot;: 2000,
+        &quot;tcpTimeoutOverride&quot;: false,
+        &quot;name&quot;: &quot;Client Network&quot;,
+        &quot;description&quot;: &quot;&quot;
+      },
+      &quot;server&quot;: {
+        &quot;ipV4SegmentSize&quot;: 1460,
+        &quot;ipV6SegmentSize&quot;: 1440,
+        &quot;initialCongestionWindow&quot;: 10,
+        &quot;retries&quot;: 2,
+        &quot;inactivityTimer&quot;: 70000,
+        &quot;receiveWindow&quot;: 65538,
+        &quot;delayedAcks&quot;: {
+          &quot;enabled&quot;: true,
+          &quot;timeout&quot;: 200,
+          &quot;bytes&quot;: 2880
+        },
+        &quot;gratuitousArp&quot;: true,
+        &quot;congestionControl&quot;: true,
+        &quot;sackOption&quot;: false,
+        &quot;tcpVegas&quot;: false,
+        &quot;tcpTimeout&quot;: 2000,
+        &quot;tcpTimeoutOverride&quot;: false,
+        &quot;name&quot;: &quot;Server Network&quot;,
+        &quot;description&quot;: &quot;&quot;
+      }
+    },
+    &quot;interfaces&quot;: {
+      &quot;client&quot;: [
+        {
+          &quot;portSystemId&quot;: &quot;10.62.224.219/1/1&quot;,
+          &quot;subnetIds&quot;: [
+            &quot;106efaa7801f27832e6a1c98ece60642&quot;
+          ]
+        }
+      ],
+      &quot;server&quot;: [
+        {
+          &quot;portSystemId&quot;: &quot;10.62.224.219/1/2&quot;,
+          &quot;subnetIds&quot;: [
+            &quot;106efaa7801f27832e6a1c98ece5fcc5&quot;
+          ]
+        }
+      ]
+    },
+    &quot;trafficMix&quot;: {
+      &quot;mixer&quot;: [
+        {
+          &quot;percentage&quot;: 10.0,
+          &quot;name&quot;: &quot;HTTP 1.0&quot;,
+          &quot;type&quot;: &quot;protocol&quot;,
+          &quot;config&quot;: {
+            &quot;client&quot;: {
+              &quot;destPort&quot;: 80,
+              &quot;destPortEnabled&quot;: false,
+              &quot;method&quot;: &quot;GET&quot;,
+              &quot;agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64)&quot;,
+              &quot;connections&quot;: 4,
+              &quot;connection&quot;: {
+                &quot;type&quot;: &quot;keepAlive&quot;
+              },
+              &quot;useCookies&quot;: false,
+              &quot;ackAfterTransactionDone&quot;: false,
+              &quot;followRedirects&quot;: false,
+              &quot;keepAlive&quot;: {
+                &quot;enabled&quot;: true,
+                &quot;count&quot;: 2,
+                &quot;delayType&quot;: &quot;perUser&quot;,
+                &quot;delayTime&quot;: 0,
+                &quot;delayTimeUnit&quot;: &quot;sec&quot;
+              },
+              &quot;separateConnections&quot;: {
+                &quot;enabled&quot;: false
+              },
+              &quot;action&quot;: [
+                {
+                  &quot;LEVEL&quot;: &quot;1&quot;,
+                  &quot;METHOD&quot;: &quot;GET&quot;,
+                  &quot;CONNS_ACTIONS&quot;: &quot;2&quot;,
+                  &quot;THINK&quot;: 0
+                }
+              ]
+            },
+            &quot;server&quot;: {
+              &quot;port&quot;: 80,
+              &quot;responseBodyType&quot;: {
+                &quot;type&quot;: &quot;fixed&quot;,
+                &quot;config&quot;: {
+                  &quot;type&quot;: &quot;default&quot;,
+                  &quot;bytes&quot;: 100000,
+                  &quot;latency&quot;: 0
+                }
+              },
+              &quot;type&quot;: &quot;Microsoft-IIS/8.5&quot;,
+              &quot;connectionTermination&quot;: &quot;RST&quot;,
+              &quot;connectionTimeout&quot;: 30000,
+              &quot;tos&quot;: &quot;&quot;
+            },
+            &quot;supplemental&quot;: {
+              &quot;proxy&quot;: {
+                &quot;enabled&quot;: false
+              },
+              &quot;authentication&quot;: {
+                &quot;enabled&quot;: false
+              }
+            }
+          }
+        },
+        {
+          &quot;percentage&quot;: 10.0,
+          &quot;name&quot;: &quot;HTTPS 1.0&quot;,
+          &quot;type&quot;: &quot;protocol&quot;,
+          &quot;config&quot;: {
+            &quot;client&quot;: {
+              &quot;destPort&quot;: 443,
+              &quot;destPortEnabled&quot;: false,
+              &quot;method&quot;: &quot;GET&quot;,
+              &quot;agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64)&quot;,
+              &quot;connections&quot;: 4,
+              &quot;connection&quot;: {
+                &quot;type&quot;: &quot;keepAlive&quot;
+              },
+              &quot;useCookies&quot;: false,
+              &quot;followRedirects&quot;: false,
+              &quot;keepAlive&quot;: {
+                &quot;enabled&quot;: true,
+                &quot;count&quot;: 2,
+                &quot;delayType&quot;: &quot;perUser&quot;,
+                &quot;delayTime&quot;: 0,
+                &quot;delayTimeUnit&quot;: &quot;sec&quot;
+              },
+              &quot;separateConnections&quot;: {
+                &quot;enabled&quot;: false
+              },
+              &quot;ackAfterTransactionDone&quot;: false,
+              &quot;action&quot;: [
+                {
+                  &quot;LEVEL&quot;: &quot;1&quot;,
+                  &quot;METHOD&quot;: &quot;GET&quot;,
+                  &quot;CONNS_ACTIONS&quot;: &quot;2&quot;,
+                  &quot;THINK&quot;: 0
+                }
+              ]
+            },
+            &quot;server&quot;: {
+              &quot;port&quot;: 443,
+              &quot;responseBodyType&quot;: {
+                &quot;type&quot;: &quot;fixed&quot;,
+                &quot;config&quot;: {
+                  &quot;type&quot;: &quot;default&quot;,
+                  &quot;bytes&quot;: 200000,
+                  &quot;latency&quot;: 0
+                }
+              },
+              &quot;type&quot;: &quot;Microsoft-IIS/8.5&quot;,
+              &quot;connectionTermination&quot;: &quot;RST&quot;,
+              &quot;connectionTimeout&quot;: 30000,
+              &quot;tos&quot;: &quot;&quot;
+            },
+            &quot;supplemental&quot;: {
+              &quot;sslTls&quot;: {
+                &quot;enabled&quot;: true,
+                &quot;sslv20&quot;: false,
+                &quot;sslv30&quot;: false,
+                &quot;tlsv10&quot;: false,
+                &quot;tlsv12&quot;: true,
+                &quot;tlsv13&quot;: false,
+                &quot;certificate&quot;: &quot;server_2048&quot;,
+                &quot;ciphers&quot;: [
+                  &quot;AES128-GCM-SHA256&quot;
+                ],
+                &quot;resumeSession&quot;: {
+                  &quot;enabled&quot;: false
+                },
+                &quot;bytes&quot;: 16383,
+                &quot;payloadEncryptionOffload&quot;: false,
+                &quot;extendedMasterSecret&quot;: false,
+                &quot;supportedGroups&quot;: {
+                  &quot;x25519&quot;: true,
+                  &quot;secp256r1&quot;: false,
+                  &quot;secp521r1&quot;: false,
+                  &quot;secp384r1&quot;: false,
+                  &quot;sect163k1&quot;: false,
+                  &quot;sect163r1&quot;: false,
+                  &quot;sect163r2&quot;: false,
+                  &quot;sect193r1&quot;: false,
+                  &quot;sect193r2&quot;: false,
+                  &quot;sect233k1&quot;: false,
+                  &quot;sect233r1&quot;: false,
+                  &quot;sect239k1&quot;: false,
+                  &quot;sect283k1&quot;: false,
+                  &quot;sect283r1&quot;: false,
+                  &quot;sect409k1&quot;: false,
+                  &quot;sect409r1&quot;: false,
+                  &quot;sect571k1&quot;: false,
+                  &quot;sect571r1&quot;: false,
+                  &quot;secp160k1&quot;: false,
+                  &quot;secp160r1&quot;: false,
+                  &quot;secp160r2&quot;: false,
+                  &quot;secp192k1&quot;: false,
+                  &quot;secp192r1&quot;: false,
+                  &quot;secp224k1&quot;: false,
+                  &quot;secp256k1&quot;: false,
+                  &quot;brainpoolP256r1&quot;: false,
+                  &quot;brainpoolP384r1&quot;: false,
+                  &quot;brainpool512r1&quot;: false,
+                  &quot;X448&quot;: false
+                },
+                &quot;signatureHashAlgorithmsList&quot;: [
+                  &quot;RSA_PKCS1_SHA256&quot;
+                ]
+              },
+              &quot;proxy&quot;: {
+                &quot;enabled&quot;: false
+              },
+              &quot;authentication&quot;: {
+                &quot;enabled&quot;: false
+              }
+            }
+          }
+        },
+        {
+          &quot;percentage&quot;: 10.0,
+          &quot;name&quot;: &quot;HTTP 1.1&quot;,
+          &quot;type&quot;: &quot;protocol&quot;,
+          &quot;config&quot;: {
+            &quot;client&quot;: {
+              &quot;destPort&quot;: 80,
+              &quot;destPortEnabled&quot;: false,
+              &quot;method&quot;: &quot;GET&quot;,
+              &quot;agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64)&quot;,
+              &quot;connections&quot;: 4,
+              &quot;connection&quot;: {
+                &quot;type&quot;: &quot;keepAlive&quot;
+              },
+              &quot;useCookies&quot;: false,
+              &quot;ackAfterTransactionDone&quot;: false,
+              &quot;followRedirects&quot;: false,
+              &quot;keepAlive&quot;: {
+                &quot;enabled&quot;: true,
+                &quot;count&quot;: 2,
+                &quot;delayType&quot;: &quot;perUser&quot;,
+                &quot;delayTime&quot;: 0,
+                &quot;delayTimeUnit&quot;: &quot;sec&quot;
+              },
+              &quot;separateConnections&quot;: {
+                &quot;enabled&quot;: false
+              },
+              &quot;action&quot;: [
+                {
+                  &quot;LEVEL&quot;: &quot;1&quot;,
+                  &quot;METHOD&quot;: &quot;GET&quot;,
+                  &quot;CONNS_ACTIONS&quot;: &quot;2&quot;,
+                  &quot;THINK&quot;: 0
+                }
+              ]
+            },
+            &quot;server&quot;: {
+              &quot;port&quot;: 80,
+              &quot;responseBodyType&quot;: {
+                &quot;type&quot;: &quot;fixed&quot;,
+                &quot;config&quot;: {
+                  &quot;type&quot;: &quot;default&quot;,
+                  &quot;bytes&quot;: 100000,
+                  &quot;latency&quot;: 0
+                }
+              },
+              &quot;type&quot;: &quot;Microsoft-IIS/8.5&quot;,
+              &quot;connectionTermination&quot;: &quot;RST&quot;,
+              &quot;connectionTimeout&quot;: 30000,
+              &quot;tos&quot;: &quot;&quot;
+            },
+            &quot;supplemental&quot;: {
+              &quot;proxy&quot;: {
+                &quot;enabled&quot;: false
+              },
+              &quot;authentication&quot;: {
+                &quot;enabled&quot;: false
+              }
+            }
+          }
+        },
+        {
+          &quot;percentage&quot;: 10.0,
+          &quot;name&quot;: &quot;HTTPS 1.1&quot;,
+          &quot;type&quot;: &quot;protocol&quot;,
+          &quot;config&quot;: {
+            &quot;client&quot;: {
+              &quot;destPort&quot;: 443,
+              &quot;destPortEnabled&quot;: false,
+              &quot;method&quot;: &quot;GET&quot;,
+              &quot;agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64)&quot;,
+              &quot;connections&quot;: 4,
+              &quot;connection&quot;: {
+                &quot;type&quot;: &quot;keepAlive&quot;
+              },
+              &quot;useCookies&quot;: false,
+              &quot;followRedirects&quot;: false,
+              &quot;keepAlive&quot;: {
+                &quot;enabled&quot;: true,
+                &quot;count&quot;: 2,
+                &quot;delayType&quot;: &quot;perUser&quot;,
+                &quot;delayTime&quot;: 0,
+                &quot;delayTimeUnit&quot;: &quot;sec&quot;
+              },
+              &quot;separateConnections&quot;: {
+                &quot;enabled&quot;: false
+              },
+              &quot;ackAfterTransactionDone&quot;: false,
+              &quot;action&quot;: [
+                {
+                  &quot;LEVEL&quot;: &quot;1&quot;,
+                  &quot;METHOD&quot;: &quot;GET&quot;,
+                  &quot;CONNS_ACTIONS&quot;: &quot;2&quot;,
+                  &quot;THINK&quot;: 0
+                }
+              ]
+            },
+            &quot;server&quot;: {
+              &quot;port&quot;: 443,
+              &quot;responseBodyType&quot;: {
+                &quot;type&quot;: &quot;fixed&quot;,
+                &quot;config&quot;: {
+                  &quot;type&quot;: &quot;default&quot;,
+                  &quot;bytes&quot;: 200000,
+                  &quot;latency&quot;: 0
+                }
+              },
+              &quot;type&quot;: &quot;Microsoft-IIS/8.5&quot;,
+              &quot;connectionTermination&quot;: &quot;FIN&quot;,
+              &quot;connectionTimeout&quot;: 30000,
+              &quot;tos&quot;: &quot;&quot;
+            },
+            &quot;supplemental&quot;: {
+              &quot;sslTls&quot;: {
+                &quot;enabled&quot;: true,
+                &quot;sslv20&quot;: false,
+                &quot;sslv30&quot;: false,
+                &quot;tlsv10&quot;: false,
+                &quot;tlsv12&quot;: true,
+                &quot;tlsv13&quot;: false,
+                &quot;certificate&quot;: &quot;server_2048&quot;,
+                &quot;ciphers&quot;: [
+                  &quot;AES128-GCM-SHA256&quot;
+                ],
+                &quot;resumeSession&quot;: {
+                  &quot;enabled&quot;: false
+                },
+                &quot;bytes&quot;: 16383,
+                &quot;payloadEncryptionOffload&quot;: false,
+                &quot;extendedMasterSecret&quot;: false,
+                &quot;supportedGroups&quot;: {
+                  &quot;x25519&quot;: true,
+                  &quot;secp256r1&quot;: false,
+                  &quot;secp521r1&quot;: false,
+                  &quot;secp384r1&quot;: false,
+                  &quot;sect163k1&quot;: false,
+                  &quot;sect163r1&quot;: false,
+                  &quot;sect163r2&quot;: false,
+                  &quot;sect193r1&quot;: false,
+                  &quot;sect193r2&quot;: false,
+                  &quot;sect233k1&quot;: false,
+                  &quot;sect233r1&quot;: false,
+                  &quot;sect239k1&quot;: false,
+                  &quot;sect283k1&quot;: false,
+                  &quot;sect283r1&quot;: false,
+                  &quot;sect409k1&quot;: false,
+                  &quot;sect409r1&quot;: false,
+                  &quot;sect571k1&quot;: false,
+                  &quot;sect571r1&quot;: false,
+                  &quot;secp160k1&quot;: false,
+                  &quot;secp160r1&quot;: false,
+                  &quot;secp160r2&quot;: false,
+                  &quot;secp192k1&quot;: false,
+                  &quot;secp192r1&quot;: false,
+                  &quot;secp224k1&quot;: false,
+                  &quot;secp256k1&quot;: false,
+                  &quot;brainpoolP256r1&quot;: false,
+                  &quot;brainpoolP384r1&quot;: false,
+                  &quot;brainpool512r1&quot;: false,
+                  &quot;X448&quot;: false
+                },
+                &quot;signatureHashAlgorithmsList&quot;: [
+                  &quot;RSA_PKCS1_SHA256&quot;
+                ]
+              },
+              &quot;proxy&quot;: {
+                &quot;enabled&quot;: false
+              },
+              &quot;authentication&quot;: {
+                &quot;enabled&quot;: false
+              }
+            }
+          }
+        },
+        {
+          &quot;percentage&quot;: 10.0,
+          &quot;name&quot;: &quot;FTP&quot;,
+          &quot;type&quot;: &quot;protocol&quot;,
+          &quot;config&quot;: {
+            &quot;port&quot;: 21,
+            &quot;bytes&quot;: 500000,
+            &quot;client&quot;: {
+              &quot;action&quot;: [
+                {
+                  &quot;URL&quot;: &quot;500000B&quot;
+                }
+              ]
+            }
+          }
+        },
+        {
+          &quot;percentage&quot;: 10.0,
+          &quot;name&quot;: &quot;Telnet&quot;,
+          &quot;type&quot;: &quot;protocol&quot;,
+          &quot;config&quot;: {
+            &quot;port&quot;: 23,
+            &quot;client&quot;: {
+              &quot;action&quot;: [
+                {
+                  &quot;PROFILE&quot;: &quot;STE&quot;
+                }
+              ]
+            }
+          }
+        },
+        {
+          &quot;percentage&quot;: 5.0,
+          &quot;name&quot;: &quot;SMTP&quot;,
+          &quot;type&quot;: &quot;protocol&quot;,
+          &quot;config&quot;: {
+            &quot;port&quot;: 25,
+            &quot;bytes&quot;: 500000,
+            &quot;supplemental&quot;: {
+              &quot;sslTls&quot;: {
+                &quot;enabled&quot;: false,
+                &quot;retryCount&quot;: 0,
+                &quot;retryInterval&quot;: 1000,
+                &quot;sslv20&quot;: false,
+                &quot;sslv30&quot;: false,
+                &quot;tlsv10&quot;: false,
+                &quot;tlsv12&quot;: true,
+                &quot;tlsv13&quot;: false,
+                &quot;certificate&quot;: &quot;server_2048&quot;,
+                &quot;ciphers&quot;: [
+                  &quot;AES128-GCM-SHA256&quot;
+                ],
+                &quot;bytes&quot;: 16383,
+                &quot;payloadEncryptionOffload&quot;: false,
+                &quot;extendedMasterSecret&quot;: false,
+                &quot;supportedGroups&quot;: {
+                  &quot;x25519&quot;: true,
+                  &quot;secp256r1&quot;: false,
+                  &quot;secp521r1&quot;: false,
+                  &quot;secp384r1&quot;: false,
+                  &quot;sect163k1&quot;: false,
+                  &quot;sect163r1&quot;: false,
+                  &quot;sect163r2&quot;: false,
+                  &quot;sect193r1&quot;: false,
+                  &quot;sect193r2&quot;: false,
+                  &quot;sect233k1&quot;: false,
+                  &quot;sect233r1&quot;: false,
+                  &quot;sect239k1&quot;: false,
+                  &quot;sect283k1&quot;: false,
+                  &quot;sect283r1&quot;: false,
+                  &quot;sect409k1&quot;: false,
+                  &quot;sect409r1&quot;: false,
+                  &quot;sect571k1&quot;: false,
+                  &quot;sect571r1&quot;: false,
+                  &quot;secp160k1&quot;: false,
+                  &quot;secp160r1&quot;: false,
+                  &quot;secp160r2&quot;: false,
+                  &quot;secp192k1&quot;: false,
+                  &quot;secp192r1&quot;: false,
+                  &quot;secp224k1&quot;: false,
+                  &quot;secp256k1&quot;: false,
+                  &quot;brainpoolP256r1&quot;: false,
+                  &quot;brainpoolP384r1&quot;: false,
+                  &quot;brainpool512r1&quot;: false,
+                  &quot;X448&quot;: false
+                },
+                &quot;signatureHashAlgorithmsList&quot;: [
+                  &quot;RSA_PKCS1_SHA256&quot;
+                ]
+              }
+            },
+            &quot;client&quot;: {
+              &quot;action&quot;: [
+                {
+                  &quot;DATA&quot;: &quot;FIXED,500000&quot;,
+                  &quot;FROM&quot;: &quot;custom.user@spirent.com&quot;,
+                  &quot;TO&quot;: &quot;spirent.user@spirent.com&quot;
+                }
+              ]
+            }
+          }
+        },
+        {
+          &quot;percentage&quot;: 5.0,
+          &quot;name&quot;: &quot;POP3&quot;,
+          &quot;type&quot;: &quot;protocol&quot;,
+          &quot;config&quot;: {
+            &quot;port&quot;: 110,
+            &quot;mailbox&quot;: {
+              &quot;type&quot;: &quot;default&quot;,
+              &quot;size&quot;: &quot;100KB&quot;
+            },
+            &quot;supplemental&quot;: {
+              &quot;sslTls&quot;: {
+                &quot;enabled&quot;: false,
+                &quot;sslv20&quot;: false,
+                &quot;sslv30&quot;: false,
+                &quot;tlsv10&quot;: false,
+                &quot;tlsv12&quot;: true,
+                &quot;tlsv13&quot;: false,
+                &quot;certificate&quot;: &quot;server_2048&quot;,
+                &quot;ciphers&quot;: [
+                  &quot;AES128-GCM-SHA256&quot;
+                ],
+                &quot;bytes&quot;: 16383,
+                &quot;payloadEncryptionOffload&quot;: false,
+                &quot;extendedMasterSecret&quot;: false,
+                &quot;supportedGroups&quot;: {
+                  &quot;x25519&quot;: true,
+                  &quot;secp256r1&quot;: false,
+                  &quot;secp521r1&quot;: false,
+                  &quot;secp384r1&quot;: false,
+                  &quot;sect163k1&quot;: false,
+                  &quot;sect163r1&quot;: false,
+                  &quot;sect163r2&quot;: false,
+                  &quot;sect193r1&quot;: false,
+                  &quot;sect193r2&quot;: false,
+                  &quot;sect233k1&quot;: false,
+                  &quot;sect233r1&quot;: false,
+                  &quot;sect239k1&quot;: false,
+                  &quot;sect283k1&quot;: false,
+                  &quot;sect283r1&quot;: false,
+                  &quot;sect409k1&quot;: false,
+                  &quot;sect409r1&quot;: false,
+                  &quot;sect571k1&quot;: false,
+                  &quot;sect571r1&quot;: false,
+                  &quot;secp160k1&quot;: false,
+                  &quot;secp160r1&quot;: false,
+                  &quot;secp160r2&quot;: false,
+                  &quot;secp192k1&quot;: false,
+                  &quot;secp192r1&quot;: false,
+                  &quot;secp224k1&quot;: false,
+                  &quot;secp256k1&quot;: false,
+                  &quot;brainpoolP256r1&quot;: false,
+                  &quot;brainpoolP384r1&quot;: false,
+                  &quot;brainpool512r1&quot;: false,
+                  &quot;X448&quot;: false
+                },
+                &quot;signatureHashAlgorithmsList&quot;: [
+                  &quot;RSA_PKCS1_SHA256&quot;
+                ]
+              }
+            },
+            &quot;client&quot;: {
+              &quot;action&quot;: [
+                {
+                  &quot;USER&quot;: &quot;Spirent&quot;,
+                  &quot;PASSWD&quot;: &quot;Spirent&quot;,
+                  &quot;COMMANDS&quot;: [
+                    &quot;CHECK RETR&quot;
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          &quot;percentage&quot;: 5.0,
+          &quot;name&quot;: &quot;CIFS/SMB&quot;,
+          &quot;type&quot;: &quot;protocol&quot;,
+          &quot;config&quot;: {
+            &quot;port&quot;: 445,
+            &quot;domainName&quot;: &quot;spirent&quot;,
+            &quot;bytes&quot;: 600000,
+            &quot;client&quot;: {
+              &quot;action&quot;: [
+                {
+                  &quot;AUTHDOMAIN&quot;: &quot;spirent&quot;,
+                  &quot;AUTH_TYPE&quot;: &quot;NTLM&quot;,
+                  &quot;CIFS_SUB_CMD&quot;: [
+                    {
+                      &quot;FILENAME&quot;: &quot;testfile&quot;,
+                      &quot;OPEN&quot;: null
+                    },
+                    {
+                      &quot;FILENAME&quot;: &quot;testfile&quot;,
+                      &quot;READ&quot;: null
+                    },
+                    {
+                      &quot;CLOSE&quot;: null,
+                      &quot;FILENAME&quot;: &quot;testfile&quot;
+                    }
+                  ],
+                  &quot;CONNECTION_TREE&quot;: &quot;/sharefile&quot;,
+                  &quot;PASSWD&quot;: &quot; passwd1&quot;,
+                  &quot;USER&quot;: &quot;user1&quot;
+                }
+              ]
+            }
+          }
+        },
+        {
+          &quot;percentage&quot;: 5.0,
+          &quot;name&quot;: &quot;IMAP4&quot;,
+          &quot;type&quot;: &quot;protocol&quot;,
+          &quot;config&quot;: {
+            &quot;port&quot;: 143,
+            &quot;min&quot;: 65000,
+            &quot;max&quot;: 65001,
+            &quot;mailboxes&quot;: [
+              {
+                &quot;id&quot;: 0,
+                &quot;unavailable&quot;: 0,
+                &quot;user&quot;: &quot;yansong&quot;,
+                &quot;folders&quot;: [
+                  {
+                    &quot;folderPath&quot;: &quot;\\&quot;inbox\\&quot;&quot;,
+                    &quot;id&quot;: 0,
+                    &quot;maximumMessageLength&quot;: 100,
+                    &quot;maximumNumberOfMessages&quot;: 100,
+                    &quot;messageFile&quot;: 0,
+                    &quot;minimumMessageLength&quot;: 10,
+                    &quot;minimumNumberOfMessages&quot;: 10,
+                    &quot;path&quot;: &quot;inbox&quot;
+                  }
+                ]
+              },
+              {
+                &quot;id&quot;: 1,
+                &quot;unavailable&quot;: 0,
+                &quot;user&quot;: &quot;Spirent&quot;,
+                &quot;folders&quot;: [
+                  {
+                    &quot;folderPath&quot;: &quot;\\&quot;inbox\\&quot;&quot;,
+                    &quot;id&quot;: 0,
+                    &quot;maximumMessageLength&quot;: 65001,
+                    &quot;maximumNumberOfMessages&quot;: 20,
+                    &quot;messageFile&quot;: 0,
+                    &quot;minimumMessageLength&quot;: 65000,
+                    &quot;minimumNumberOfMessages&quot;: 1,
+                    &quot;path&quot;: &quot;inbox&quot;
+                  }
+                ]
+              }
+            ],
+            &quot;supplemental&quot;: {
+              &quot;sslTls&quot;: {
+                &quot;enabled&quot;: false,
+                &quot;sslv20&quot;: false,
+                &quot;sslv30&quot;: false,
+                &quot;tlsv10&quot;: false,
+                &quot;tlsv12&quot;: true,
+                &quot;tlsv13&quot;: false,
+                &quot;certificate&quot;: &quot;server_2048&quot;,
+                &quot;ciphers&quot;: [
+                  &quot;AES128-GCM-SHA256&quot;
+                ],
+                &quot;bytes&quot;: 16383,
+                &quot;payloadEncryptionOffload&quot;: false,
+                &quot;extendedMasterSecret&quot;: false,
+                &quot;supportedGroups&quot;: {
+                  &quot;x25519&quot;: true,
+                  &quot;secp256r1&quot;: false,
+                  &quot;secp521r1&quot;: false,
+                  &quot;secp384r1&quot;: false,
+                  &quot;sect163k1&quot;: false,
+                  &quot;sect163r1&quot;: false,
+                  &quot;sect163r2&quot;: false,
+                  &quot;sect193r1&quot;: false,
+                  &quot;sect193r2&quot;: false,
+                  &quot;sect233k1&quot;: false,
+                  &quot;sect233r1&quot;: false,
+                  &quot;sect239k1&quot;: false,
+                  &quot;sect283k1&quot;: false,
+                  &quot;sect283r1&quot;: false,
+                  &quot;sect409k1&quot;: false,
+                  &quot;sect409r1&quot;: false,
+                  &quot;sect571k1&quot;: false,
+                  &quot;sect571r1&quot;: false,
+                  &quot;secp160k1&quot;: false,
+                  &quot;secp160r1&quot;: false,
+                  &quot;secp160r2&quot;: false,
+                  &quot;secp192k1&quot;: false,
+                  &quot;secp192r1&quot;: false,
+                  &quot;secp224k1&quot;: false,
+                  &quot;secp256k1&quot;: false,
+                  &quot;brainpoolP256r1&quot;: false,
+                  &quot;brainpoolP384r1&quot;: false,
+                  &quot;brainpool512r1&quot;: false,
+                  &quot;X448&quot;: false
+                },
+                &quot;signatureHashAlgorithmsList&quot;: [
+                  &quot;RSA_PKCS1_SHA256&quot;
+                ]
+              }
+            },
+            &quot;client&quot;: {
+              &quot;action&quot;: [
+                {
+                  &quot;USER&quot;: &quot;Spirent&quot;,
+                  &quot;PASSWD&quot;: &quot;Spirent&quot;,
+                  &quot;COMMANDS&quot;: [
+                    &quot;SELECT = inbox&quot;,
+                    &quot;FETCH_BODY=\\&quot;1,3,6:10,14:*\\&quot;&quot;,
+                    &quot;LOGOUT&quot;
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          &quot;percentage&quot;: 5.0,
+          &quot;name&quot;: &quot;RTSP&quot;,
+          &quot;type&quot;: &quot;protocol&quot;,
+          &quot;config&quot;: {
+            &quot;port&quot;: 554,
+            &quot;duration&quot;: 1,
+            &quot;transport&quot;: &quot;UDP&quot;,
+            &quot;client&quot;: {
+              &quot;action&quot;: [
+                {
+                  &quot;fileName&quot;: &quot;1sec.mov.caw&quot;
+                }
+              ]
+            }
+          }
+        },
+        {
+          &quot;percentage&quot;: 5.0,
+          &quot;name&quot;: &quot;SIP&quot;,
+          &quot;type&quot;: &quot;protocol&quot;,
+          &quot;config&quot;: {
+            &quot;port&quot;: 5060,
+            &quot;length&quot;: 1000,
+            &quot;client&quot;: {
+              &quot;action&quot;: [
+                {
+                  &quot;PHONEBOOK&quot;: &quot;SIPNG_TCP_G711A_BW&quot;
+                }
+              ]
+            }
+          }
+        },
+        {
+          &quot;percentage&quot;: 5.0,
+          &quot;name&quot;: &quot;uTorrent&quot;,
+          &quot;type&quot;: &quot;app&quot;,
+          &quot;config&quot;: {
+            &quot;uTorrent Tracker Server Port (UDP)&quot;: &quot;21472&quot;,
+            &quot;Download File Server Port (TCP)&quot;: &quot;21473&quot;,
+            &quot;File Share Size&quot;: &quot;8 MB&quot;
+          }
+        },
+        {
+          &quot;percentage&quot;: 5.0,
+          &quot;name&quot;: &quot;Exchange&quot;,
+          &quot;type&quot;: &quot;app&quot;,
+          &quot;config&quot;: {
+            &quot;EXCHANGE Server Port (TCP)&quot;: &quot;5003&quot;
+          }
+        }
+      ],
+      &quot;initialType&quot;: &quot;Custom&quot;,
+      &quot;type&quot;: &quot;emix&quot;
+    },
+    &quot;securityMix&quot;: {
+      &quot;volume&quot;: 1,
+      &quot;profiles&quot;: [
+        
+      ],
+      &quot;specialEligibleTests&quot;: null
+    },
+    &quot;virtualRouters&quot;: {
+      &quot;client&quot;: [
+        
+      ],
+      &quot;server&quot;: [
+        
+      ]
+    },
+    &quot;trafficPattern&quot;: &quot;Pair&quot;,
+    &quot;loadSpecification&quot;: {
+      &quot;duration&quot;: 330,
+      &quot;startup&quot;: 20,
+      &quot;rampup&quot;: 60,
+      &quot;rampdown&quot;: 60,
+      &quot;shutdown&quot;: 70,
+      &quot;bandwidth&quot;: 1000,
+      &quot;type&quot;: &quot;Bandwidth&quot;,
+      &quot;constraints&quot;: {
+        &quot;enabled&quot;: false
+      }
+    }
+  },
+  &quot;updatedBy&quot;: &quot;ashokkumar.p@spirent.com&quot;,
+  &quot;updatedAt&quot;: &quot;2024-08-26T12:36:10.837Z&quot;,
+  &quot;createdAt&quot;: &quot;2024-07-15T09:49:07.980Z&quot;
+}</message>
+                        <authentication transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.AuthenticationProperties" authenticationType.inherit="false" user="ashokkumar.p@spirent.com" user.inherit="false" password.masked="true" password="8t+EnBZizaiaXYyO0nPrYQ==" password.inherit="false" acceptAllCertificates="true" acceptAllCertificates.inherit="false"/>
+                        <httpHeader inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
+                            <memberClasses>
+                                <item>com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry</item>
+                            </memberClasses>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Content-Type" header.inherit="false" value="application/json" value.inherit="false"/>
+                            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Authorization" header.inherit="false" value="Bearer [cf_token]" value.inherit="false"/>
+                        </httpHeader>
+                    </applicationProperties>
+                </item>
+            </steps>
+        </item>
+    </procedures>
+</testCase>

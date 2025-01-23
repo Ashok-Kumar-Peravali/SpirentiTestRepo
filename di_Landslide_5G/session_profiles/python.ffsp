@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<SessionTemplate version="9.5.0.202402062035">
+    <baseApplication>com.fnfr.svt.applications.python</baseApplication>
+    <sessionProperties type="com.fnfr.svt.applications.python.PythonSessionProperties"/>
+    <responseLibrary inherit="false">project://di_Landslide_5G/</responseLibrary>
+    <formMapLibrary inherit="false">project://di_Landslide_5G/</formMapLibrary>
+    <language>Python</language>
+</SessionTemplate>

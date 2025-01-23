@@ -1,0 +1,15 @@
+Date: 14/8/2024
+Time: 16:12
+Phone Number: +919742269304
+Message: Hello from Python! This is an instant WhatsApp message.
+--------------------
+Date: 14/8/2024
+Time: 16:14
+Phone Number: +919742269304
+Message: Hello from Python! This is an instant WhatsApp message.
+--------------------
+Date: 14/8/2024
+Time: 16:16
+Phone Number: +919742269304
+Message: Hello from Python! This is an instant WhatsApp message.
+--------------------

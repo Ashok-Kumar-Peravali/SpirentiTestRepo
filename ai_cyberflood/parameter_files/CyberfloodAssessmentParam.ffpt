@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<ParameterTree version="9.5.1.202405090526">
+    <parameters escape="true">
+        <parameters xmlns:pt="http://www.fnfr.com/schemas/parameterTree">
+            <cyberflood>
+                <ip pt:description="global-demo-cf.cf-tm.lwd.int.spirent.io">10.220.96.20</ip>
+                <username>ashokkumar.p@spirent.com</username>
+                <password>Spirent@123</password>
+                <test_id>391ceae8c0ed9f3cb67446b980f92885</test_id>
+                <test_name>CR1_TrafficMix_IOT</test_name>
+                <cyberthreat_id>4525aefa-aeec-4617-92cb-142bbb54f3b9</cyberthreat_id>
+                <cyberthreat_name>CR1-CyberThreatAssessment</cyberthreat_name>
+                <app_protocol_load>
+                    <HTTP_1_0 pt:datatype="DOUBLE">9.0</HTTP_1_0>
+                    <HTTPS_1_0 pt:datatype="DOUBLE">9.0</HTTPS_1_0>
+                    <HTTP_1_1 pt:datatype="DOUBLE">12.0</HTTP_1_1>
+                    <HTTPS_1_1 pt:datatype="DOUBLE">10.0</HTTPS_1_1>
+                    <FTP pt:datatype="DOUBLE">10.0</FTP>
+                    <Telnet pt:datatype="DOUBLE">10.0</Telnet>
+                    <SMTP pt:datatype="DOUBLE">5.0</SMTP>
+                    <POP3 pt:datatype="DOUBLE">5.0</POP3>
+                    <CIFS_SMB pt:datatype="DOUBLE">5.0</CIFS_SMB>
+                    <IMAP4 pt:datatype="DOUBLE">5.0</IMAP4>
+                    <RTSP pt:datatype="DOUBLE">5.0</RTSP>
+                    <SIP pt:datatype="DOUBLE">5.0</SIP>
+                    <uTorrent pt:datatype="DOUBLE">5.0</uTorrent>
+                    <Exchange pt:datatype="DOUBLE">5.0</Exchange>
+                </app_protocol_load>
+            </cyberflood>
+        </parameters>
+    </parameters>
+</ParameterTree>

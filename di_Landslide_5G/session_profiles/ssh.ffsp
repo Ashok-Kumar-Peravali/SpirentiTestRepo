@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<SessionTemplate version="9.5.0.202402062035">
+    <baseApplication>com.fnfr.svt.applications.ssh</baseApplication>
+    <sessionProperties type="com.fnfr.svt.applications.ssh.documents.SSHProperties">
+        <TerminalProperties>
+            <captureProperties>
+                <commandBreakChars inherit="false">
+                    <item>[char Ctrl-C]</item>
+                </commandBreakChars>
+            </captureProperties>
+            <prompts merge="true">
+                <item name="generic1" MatchMethod="WILDCARD">
+                    <Content>*#</Content>
+                </item>
+                <item name="generic2" MatchMethod="WILDCARD">
+                    <Content>*$</Content>
+                </item>
+                <item name="generic3" MatchMethod="WILDCARD">
+                    <Content>*:</Content>
+                </item>
+            </prompts>
+        </TerminalProperties>
+        <ipAddress inherit="false">[param(&apos;gNB/ip&apos;)]</ipAddress>
+        <user inherit="false">[param(&apos;gNB/username&apos;)]</user>
+        <password inherit="false" masked="false">[param(&apos;gNB/password&apos;)]</password>
+    </sessionProperties>
+    <responseLibrary inherit="false">project://di_Landslide_5G/</responseLibrary>
+    <formMapLibrary inherit="false">project://di_Landslide_5G/</formMapLibrary>
+    <language>Python</language>
+</SessionTemplate>

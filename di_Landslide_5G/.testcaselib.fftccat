@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<TestCaseCatalog version="9.5.1.202405090526">
+    <testCaseCatalog>
+        <item name="session_profiles/5G_Core_Multi_User_PDU_Test_Procedure.fftc">
+            <tcDescriptor version="9.5.1.202405090526">
+                <general>
+                    <isProcedureLibrary>true</isProcedureLibrary>
+                    <language>Python</language>
+                    <xPathVersion>XPATH31</xPathVersion>
+                </general>
+                <procedures>
+                    <item name="main" isPublic="true" blockResponseType="JSON">
+                        <arguments>
+                            <item name="ue_count">
+                                <isMandatory>true</isMandatory>
+                            </item>
+                        </arguments>
+                        <response>{&quot;TestResult&quot;:&quot;value&quot;}</response>
+                    </item>
+                </procedures>
+            </tcDescriptor>
+        </item>
+    </testCaseCatalog>
+</TestCaseCatalog>

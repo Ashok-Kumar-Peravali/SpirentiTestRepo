@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<SessionTemplate version="9.5.0.202402062035">
+    <baseApplication>com.spirent.itest.applications.landsliderest</baseApplication>
+    <sessionProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.spirent.itest.applications.landsliderest" transferableType="com.spirent.itest.applications.landsliderest.properties.LandslideRestSessionProperties" landslideRESTAPI="[param(&apos;Landslide/url&apos;)]" landslideRESTAPI.inherit="false">
+        <authentication transferableToolId="com.spirent.itest.applications.landsliderest" transferableType="com.spirent.itest.applications.landsliderest.properties.LandslideRestAuthenticationProperties" user="[param(&apos;Landslide/username&apos;)]" user.inherit="false" password.masked="false" password="[param(&apos;Landslide/password&apos;)]" password.inherit="false" acceptAllCertificates="true" acceptAllCertificates.inherit="false"/>
+    </sessionProperties>
+    <responseLibrary inherit="false">project://di_Landslide_5G/</responseLibrary>
+    <formMapLibrary inherit="false">project://di_Landslide_5G/</formMapLibrary>
+    <language>Python</language>
+</SessionTemplate>

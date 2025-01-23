@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<SessionTemplate version="9.5.1.202405090526">
+    <baseApplication>com.fnfr.itest.applications.spirent.customtool.cyberflood</baseApplication>
+    <sessionProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulSessionProperties" url="https://global-demo-cf.cf-tm.lwd.int.spirent.io/api/v2/" url.inherit="false" acceptAllCookies.inherit="false" version="2" version.inherit="false">
+        <authentication transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.AuthenticationProperties" authenticationType="Basic" authenticationType.inherit="false" user="ashokkumar.p@spirent.com" user.inherit="false" password.masked="true" password="8t+EnBZizaiaXYyO0nPrYQ==" password.inherit="false" acceptAllCertificates="true" acceptAllCertificates.inherit="false"/>
+        <httpHeader inherit="false" transferableToolId="com.fnfr.itest.applications.webservices.restful">
+            <memberClasses>
+                <item>com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry</item>
+            </memberClasses>
+            <item transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.HTTPHeaderEntry" header="Content-Type" header.inherit="false" value="application/json" value.inherit="false"/>
+        </httpHeader>
+    </sessionProperties>
+    <responseLibrary inherit="false">project://di_cyberflood/</responseLibrary>
+    <formMapLibrary inherit="false">project://di_cyberflood/</formMapLibrary>
+    <language>Python</language>
+</SessionTemplate>
